@@ -25,9 +25,6 @@
   --leather-red: #B8312F;
   --leather-caramel: #A0623A;
 
-  /* Тиснення ініціалів (LeatherDeboss.vue): колір продавленої шкіри для multiply і сила рельєфу (overlay) */
-  --deboss-press: #a07b68;
-  --deboss-relief: 1;
   --scrim: rgba(27, 23, 20, 0.78);
   --scrim-hero: rgba(20, 16, 14, 0.74);
   --scrim-clear: rgba(20, 16, 14, 0);
@@ -74,7 +71,7 @@ body {
   overflow-x: clip;
 }
 
-/* Якорі (/#personal) і фокус не ховаються під закріпленою шапкою */
+/* Якорі і фокус не ховаються під закріпленою шапкою */
 html {
   scroll-padding-top: calc(var(--header-h) - var(--header-shrink));
 }

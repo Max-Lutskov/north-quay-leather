@@ -6,7 +6,6 @@ import type { NavItem } from '~/types/navigation'
 export const mainNav: NavItem[] = [
   { to: '/collections/all', key: 'nav.shop' },
   { to: '/collections/totes', key: 'nav.totes' },
-  { to: '/#personal', key: 'nav.personalization' },
   { to: '/about', key: 'nav.story' },
 ]
 

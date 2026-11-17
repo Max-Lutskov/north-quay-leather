@@ -14,7 +14,6 @@
     "totes": "Totes",
     "shoulderBags": "Shoulder bags",
     "backpacks": "Backpacks",
-    "personalization": "Personalization",
     "story": "Our story"
   },
   "header": {
@@ -31,7 +30,6 @@
     "title": "Leather bags,\nmade by hand\nin Ukraine",
     "lead": "Crazy Horse leather, from our family workshop since 2017.",
     "shop": "Shop the bags",
-    "personalize": "Personalize a bag",
     "altCognac": "Cognac leather tote with zipper and crossbody strap",
     "altBurgundy": "Burgundy leather tote held by a model",
     "altSlouchy": "Slouchy cognac leather hobo bag",
@@ -49,7 +47,6 @@
     "miniCrossbody": "Mini & crossbody"
   },
   "badge": {
-    "personalize": "Personalize",
     "new": "New",
     "bestseller": "Bestseller"
   },
@@ -65,7 +62,6 @@
     "sizeLine": "{height} × {width} × {depth} cm, fits a {laptop} inch laptop",
     "addToCart": "Add to cart, {price}",
     "addToCartShort": "Add to cart",
-    "personalize": "Add engraving or initials",
     "details": "Details",
     "size": "Size & fit",
     "shipping": "Shipping & duties",
@@ -85,15 +81,6 @@
     "cmRange": "{from} to {to} cm ({inchFrom} to {inchTo} in)",
     "alsoLike": "You may also like",
     "cmShort": "{n} cm"
-  },
-  "personal": {
-    "title": "Your initials,\npressed into the leather",
-    "lead": "A gift for a wedding, a colleague or yourself. Add up to three letters when you order, and we emboss them by hand before the bag leaves the workshop.",
-    "step1": "Choose a bag",
-    "step2": "Type your initials",
-    "step3": "We emboss and ship it",
-    "alt": "Front pocket of a cognac Crazy Horse leather bag with your initials embossed",
-    "try": "Try yours:"
   },
   "leather": {
     "title": "Crazy Horse leather gets better every year",

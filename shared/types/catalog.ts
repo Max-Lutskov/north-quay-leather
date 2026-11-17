@@ -33,7 +33,7 @@ export interface ProductSummary {
   colors: LeatherColor[]
   // Колір сумки на фото картки: його показуємо вибраним за замовчуванням.
   imageColor: LeatherColor
-  badge: 'personalize' | 'new' | 'bestseller' | null
+  badge: 'new' | 'bestseller' | null
 }
 
 // Плитка категорії на головній. labelKey — ключ i18n для підпису.

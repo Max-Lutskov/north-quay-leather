@@ -156,9 +156,6 @@ useSeoMeta({
             <button ref="mainBtn" type="button" class="btn btn--primary add">
               {{ t('product.addToCart', { price: money(item.price) }) }}
             </button>
-            <NuxtLink :to="localePath('/personalization')" class="text-link personalize">
-              {{ t('product.personalize') }}
-            </NuxtLink>
           </div>
 
           <div class="accordion">
@@ -374,12 +371,6 @@ useSeoMeta({
   width: 100%;
   min-height: 56px;
   font-size: 16px;
-}
-.personalize {
-  display: inline-flex;
-  align-items: center;
-  min-height: var(--tap);
-  box-sizing: border-box;
 }
 
 /* Розкривні блоки */

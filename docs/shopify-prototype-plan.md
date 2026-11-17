@@ -47,6 +47,9 @@
 
 ## Крок 1. Прибрати витиск ініціалів
 
+**Зроблено 2026-11-18.** Заодно прибрано кнопку «Personalize a bag» у `HomeHero.vue` (і її стиль `.btn--ghost`),
+ключі `hero.personalize`, `badge.personalize`.
+
 Чистий крок без Shopify, щоб не тягнути мертвий код далі.
 
 - Видалити: `components/home/HomePersonalize.vue`, `components/LeatherDeboss.vue`, `utils/initials.ts`,

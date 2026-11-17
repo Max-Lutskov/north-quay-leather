@@ -82,7 +82,6 @@ function release() {
         </div>
         <div class="ctas">
           <NuxtLink :to="localePath('/collections/all')" class="btn btn--light">{{ t('hero.shop') }}</NuxtLink>
-          <NuxtLink :to="localePath('/#personal')" class="btn btn--ghost">{{ t('hero.personalize') }}</NuxtLink>
         </div>
         <!-- Смужки є в розмітці з сервера (на десктопі сховані CSS), інакше після гідратації
              вони з'являлись і зсували заголовок угору -->
@@ -182,16 +181,6 @@ function release() {
   background: var(--paper-deep);
   border-color: var(--paper-deep);
   color: var(--ink);
-}
-.btn--ghost {
-  padding: 0 28px;
-  background: transparent;
-  border-color: var(--on-dark);
-  color: var(--on-dark);
-}
-.btn--ghost:hover {
-  color: var(--accent-on-dark);
-  border-color: var(--accent-on-dark);
 }
 .hero :focus-visible {
   outline-color: var(--accent-on-dark);

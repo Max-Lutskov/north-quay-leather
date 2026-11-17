@@ -16,7 +16,6 @@ useSeoMeta({
     <HomeHero />
     <HomeCategories />
     <HomeBestsellers />
-    <HomePersonalize />
     <HomeLeather />
     <HomeReviews />
     <HomeStory />

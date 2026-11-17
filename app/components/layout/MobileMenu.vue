@@ -105,15 +105,7 @@ function onKeydown(e: KeyboardEvent) {
           </NuxtLink>
         </div>
 
-        <NuxtLink :to="localePath('/#personal')" class="feature" :style="{ '--i': items.length + 1 }" @click="emit('close')">
-          <span class="plate">
-            <NuxtImg src="/images/leather-pocket.jpg" alt="" preset="photo" sizes="96px" loading="lazy" />
-            <LeatherDeboss :text="locale === 'ua' ? 'В.К.' : 'V.K.'" />
-          </span>
-          <span class="feature-text">{{ t('personal.title').replace('\n', ' ') }}</span>
-        </NuxtLink>
-
-        <div class="foot" :style="{ '--i': items.length + 2 }">
+        <div class="foot" :style="{ '--i': items.length + 1 }">
           <span class="rating">{{ n(etsy.rating) }}</span>
           <span>{{ t('reviews.caption', { count: n(etsy.reviews) }, etsy.reviews) }}</span>
           <span>{{ t('topBar.handmade') }}</span>
@@ -226,32 +218,6 @@ function onKeydown(e: KeyboardEvent) {
   min-height: var(--tap);
 }
 
-.feature {
-  display: grid;
-  grid-template-columns: 96px 1fr;
-  gap: 16px;
-  align-items: center;
-  margin: 24px var(--gutter) 0;
-}
-.plate {
-  position: relative;
-  aspect-ratio: 1200 / 1050;
-  overflow: hidden;
-  background: var(--leather-fallback);
-}
-.plate img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-.feature-text {
-  font-size: 15px;
-  font-weight: 600;
-  line-height: 1.4;
-}
-
 .foot {
   margin-top: auto;
   padding: 24px var(--gutter) 32px;
@@ -273,7 +239,6 @@ function onKeydown(e: KeyboardEvent) {
 /* Пункти виїжджають по черзі слідом за панеллю; при закритті зникають разом. */
 .link,
 .secondary,
-.feature,
 .foot {
   opacity: 0;
   transform: translateX(-16px);
@@ -281,7 +246,6 @@ function onKeydown(e: KeyboardEvent) {
 }
 .open .link,
 .open .secondary,
-.open .feature,
 .open .foot {
   opacity: 1;
   transform: none;
@@ -294,13 +258,11 @@ function onKeydown(e: KeyboardEvent) {
   .backdrop,
   .link,
   .secondary,
-  .feature,
   .foot {
     transition: none !important;
   }
   .link,
   .secondary,
-  .feature,
   .foot {
     transform: none;
   }
