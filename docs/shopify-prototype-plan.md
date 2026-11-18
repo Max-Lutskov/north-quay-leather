@@ -143,7 +143,7 @@ Etsy («View all bags» без кількості); смужка «Demo store» 
   «Каталог». Файл у цьому кроці не переписувати, лише виправляти, якщо імпорт падає.
 - Руками Макса, до коду кроку:
   1. Фото в CSV — адреси raw.githubusercontent.com на `public/images/products/…` з кроку 2. Крок 2 має бути
-     запушений. Якщо репозиторій перейменовано, замінити в CSV `Max-Lutskov/OldTownLeather` на нову назву
+     запушений. Репозиторій перейменовано на `north-quay-leather` (2026-11-18), адреси в CSV уже оновлено. Якщо назва ще зміниться, замінити в CSV `Max-Lutskov/north-quay-leather` на нову
      (одна заміна) і відкрити в браузері одну адресу з колонки `Product image URL`.
   2. В адмінці **спершу** створити визначення metafields `custom.subtitle` (Single line text) і `custom.specs`
      (JSON) з доступом для Storefront.

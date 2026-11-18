@@ -95,9 +95,9 @@
 - Жодних вигаданих цифр і відгуків. Сторінка не закінчується підпискою на email
 
 ## Деплой демо (GitHub Pages)
-- Репозиторій github.com/Max-Lutskov/OldTownLeather, гілка `main`. Пуш запускає `.github/workflows/deploy.yml`:
+- Репозиторій github.com/Max-Lutskov/north-quay-leather (до 2026-11-18 `OldTownLeather`), гілка `main`. Пуш запускає `.github/workflows/deploy.yml`:
   `nuxt generate` з `NUXT_APP_BASE_URL=/<назва репо>/` і `NUXT_PUBLIC_NOINDEX=true`
-- Демо: https://max-lutskov.github.io/OldTownLeather/ (з `noindex,nofollow`)
+- Демо: https://max-lutskov.github.io/north-quay-leather/ (з `noindex,nofollow`)
 - Сторінки для статичної збірки задані явно в `nitro.prerender.routes` (`nuxt.config.ts`). Нову сторінку додавати туди
 - `NUXT_PUBLIC_SITE_URL` і `NUXT_PUBLIC_I18N_BASE_URL` (домен без підпапки) задає workflow: з них canonical,
   hreflang і og:image (`absolutePublicUrl`). Без них посилання відносні
@@ -105,7 +105,7 @@
   ламаються в підпапці
 
 ## Відомі пастки
-- Git Bash на Windows перетворює `/OldTownLeather/` у змінних середовища на шлях на диску. Локальну збірку
+- Git Bash на Windows перетворює `/north-quay-leather/` у змінних середовища на шлях на диску. Локальну збірку
   в підпапку запускати з `MSYS_NO_PATHCONV=1`
 - `package-lock.json`, створений на Windows, губить `"optional": true` у платформних пакетів `@esbuild/*`,
   і `npm ci` у Linux падає з EBADPLATFORM. Після `npm install` перевіряти це перед пушем.
@@ -140,7 +140,5 @@
    промти для кроків 1–2 у `docs/shopify-prototype-notes.md`. Dev-магазин `north-quay-leather.myshopify.com`
    налаштовано і перевірено (план, «Дані кроку 0»); домен і публічний токен у `.env` (не в git)
 8. **Крок 1 плану зроблено** (витиск ініціалів прибрано).
-9. **Крок 2 плану зроблено** (бренд North Quay Leather, фото, без Etsy і відгуків). Лишилось поза репозиторієм:
-   Макс перейменовує репозиторій на GitHub; після цього в розділі «Деплой демо» замінити назву репозиторію
-   й адресу демо, а в `docs/products.csv` замінити `Max-Lutskov/OldTownLeather` на нову назву. Далі крок 3
-   (клієнт Storefront API)
+9. **Крок 2 плану зроблено** (бренд North Quay Leather, фото, без Etsy і відгуків). Репозиторій перейменовано
+   на `north-quay-leather`, адреси фото в `docs/products.csv` оновлено. Далі крок 3 (клієнт Storefront API)
