@@ -141,7 +141,15 @@ Etsy («View all bags» без кількості); смужка «Demo store» 
 - Товари: готовий `docs/products.csv` (8 сумок, 4 колекції з тими самими handle, що в `homeCategories`, у кожного
   товару 1–2 кольори як варіанти опції `Color`, ціни круглі). Зміст і розміри: `docs/shopify-prototype-notes.md`,
   «Каталог». Файл у цьому кроці не переписувати, лише виправляти, якщо імпорт падає.
-- Руками Макса, до коду кроку:
+- **Дані в Shopify вже залито (2026-11-18), у цьому кроці лише код.** Стан: 8 товарів, 10 варіантів, 24 фото
+  з alt, `subtitle` і `specs` заповнені й звірені з CSV через Storefront API; колекції `totes`, `shoulder-bags`,
+  `laptop-work`, `mini-crossbody`, `bestsellers` (structured-tote, barrel-bag, quilted-work-tote, dome-bag)
+  опубліковані в Headless. Є ще стандартна `frontpage` (порожня), її ігнорувати.
+  Пастки, на які натрапили: metafield типу JSON **не імпортується з CSV** (`specs` вписано вручну в адмінці,
+  колонку в CSV лишено як джерело значень); колекції з CSV публікуються лише в Online Store, у Headless —
+  окремо (Collections → вибрати → Include in sales channels). Якщо товари колись переімпортувати, ці два
+  кроки повторити.
+- Як це робилось (довідково):
   1. Фото в CSV — адреси raw.githubusercontent.com на `public/images/products/…` з кроку 2. Крок 2 має бути
      запушений. Репозиторій перейменовано на `north-quay-leather` (2026-11-18), адреси в CSV уже оновлено. Якщо назва ще зміниться, замінити в CSV `Max-Lutskov/north-quay-leather` на нову
      (одна заміна) і відкрити в браузері одну адресу з колонки `Product image URL`.
@@ -257,7 +265,7 @@ Etsy («View all bags» без кількості); смужка «Demo store» 
 - Канал Headless встановлено, storefront «North Quay Leather Headless». Дозволи Storefront API: товари, теги,
   checkouts read/write, content, metaobjects, customers (без inventory, bundles)
 - Metafields `custom.subtitle` (Single line text) і `custom.specs` (JSON) створено, доступ Storefront увімкнено
-- Тестовий товар «Checkout test item» ($10, 10 шт., handle `checkout-test-item`) опублікований у всіх каналах.
-  Після імпорту CSV на кроці 4 видалити, інакше потрапить у `useAllProducts()`
+- Тестовий товар «Checkout test item» ($10, handle `checkout-test-item`): після імпорту каталогу переведено
+  в Draft (2026-11-18), через Storefront API не видно. Для нової перевірки кошика можна повернути в Active
 
 (Публічний токен сюди не писати: він іде в `.env` і секрети репозиторію.)
