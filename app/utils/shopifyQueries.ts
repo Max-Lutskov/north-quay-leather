@@ -26,6 +26,20 @@ export const productDetailQuery = /* GraphQL */ `
   }
 `
 
+export const collectionHandlesQuery = /* GraphQL */ `
+  query CollectionHandles {
+    collections(first: 50) { nodes { handle } }
+  }
+`
+
+// Усі товари в порядку, як у адмінці (сортування й фільтр — на сторінці, план, крок 5)
+export const allProductsQuery = /* GraphQL */ `
+  ${productSummaryFields}
+  query AllProducts($first: Int!) {
+    products(first: $first, sortKey: CREATED_AT) { nodes { ...ProductSummaryFields } }
+  }
+`
+
 export const collectionProductsQuery = /* GraphQL */ `
   ${productSummaryFields}
   query CollectionProducts($handle: String!, $first: Int!) {

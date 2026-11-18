@@ -32,7 +32,7 @@ prerenderRoutes(localePath(`/products/${props.product.handle}`))
 <template>
   <article class="card">
     <NuxtLink :to="href" class="photo media" tabindex="-1" aria-hidden="true">
-      <NuxtImg :src="product.image.url" :alt="product.image.alt" preset="photo" sizes="xs:50vw sm:50vw md:34vw lg:25vw xl:300px" loading="lazy" />
+      <NuxtImg :src="product.image.url" :alt="product.image.alt" :provider="imageProvider(product.image.url)" preset="photo" sizes="xs:50vw sm:50vw md:34vw lg:25vw xl:300px" loading="lazy" />
       <span v-if="badgeKey" class="badge">{{ t(badgeKey) }}</span>
     </NuxtLink>
     <div class="info">

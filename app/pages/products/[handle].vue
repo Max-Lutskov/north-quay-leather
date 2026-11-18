@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { LeatherColor } from '#shared/types/catalog'
 
-// Сторінка товару. Поки демо: будь-який handle показує Tidal Barrel Bag (useProduct у useCatalog.ts).
+// Сторінка товару: дані з Shopify за handle (useProduct у useCatalog.ts), немає товару — 404.
 // Опис і рішення: docs/superpowers/specs/2026-10-29-product-page-design.md
 const route = useRoute()
 const { t } = useI18n()

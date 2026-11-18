@@ -9,5 +9,7 @@ export function publicPath(path: string): string {
 // Повна адреса файлу з public/ (з доменом): для og:image і всього, що читають інші сайти.
 // Без siteUrl лишається відносним шляхом.
 export function absolutePublicUrl(path: string): string {
+  // Фото з Shopify CDN уже мають повну адресу
+  if (/^https?:\/\//.test(path)) return path
   return joinURL(useRuntimeConfig().public.siteUrl, publicPath(path))
 }

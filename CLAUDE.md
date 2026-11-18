@@ -30,7 +30,12 @@
 - Товари й категорії компоненти беруть лише через composables з `app/composables/useCatalog.ts`
   (`useAsyncData` з ключами `catalog:*`, за замовчуванням `[]`), а не імпортом `~/data/catalog`. Під Shopify
   міняється тільки тіло цих функцій. Якщо даних немає або запит упав, секція не показується
-- Клієнт Shopify (крок 3 плану, ще не підключений до `useCatalog.ts`): `app/utils/shopify.ts` (`shopifyFetch`,
+- Каталог з Shopify (кроки 3–4 плану): `useCatalog.ts` — `useHomeCategories` (статичні плитки з
+  `data/catalog.ts`, лише для колекцій, що є в Shopify), `useBestsellers` (колекція `bestsellers`), `useProduct`,
+  `useCollection`, `useAllProducts`. Без `NUXT_PUBLIC_SHOPIFY_STORE_DOMAIN` усі повертають тимчасові дані з
+  `app/data/`. Сайт статичний: запити йдуть під час `nuxt generate`, зміни в адмінці видно після нової збірки.
+  Фото з Shopify CDN — `<NuxtImg :provider="imageProvider(url)">` (провайдер `shopify`), локальні — ipx.
+  Клієнт: `app/utils/shopify.ts` (`shopifyFetch`,
   кидає і на HTTP-помилку, і на `errors` у тілі), `app/utils/shopifyQueries.ts` (запити), `app/utils/shopifyMap.ts`
   (відповідь → `ProductSummary` / `ProductDetail`; таблиці кольорів і категорій там же), типи відповідей у
   `shared/types/shopify.ts`. Налаштування в `runtimeConfig.public` (`NUXT_PUBLIC_SHOPIFY_*` у `.env`).
@@ -48,7 +53,8 @@
 - Імена типів описують дані, а не компонент: `ProductSummary`, а не `ProductCard` (так зветься компонент)
 
 ## Що зараз MOCK
-- `app/data/catalog.ts` — тимчасові товари й категорії у формі, близькій до відповіді Storefront API
+- `app/data/catalog.ts` і `product.ts` — запасні дані, коли Shopify не налаштований (немає `.env`); плитки
+  категорій з `catalog.ts` використовуються й із Shopify (це оформлення, а не дані)
 - `app/data/brand.ts` — контакти (поки `null`, футер показує заглушки) і способи оплати
 - Відгуків і блоку «Про нас» на головній немає: відгуки були справжні й чужі, вигадувати нові заборонено, а
   фото засновників належали справжньому магазину. Не повертати. Сторінка «Про нас» буде на кроці 8 плану

@@ -14,7 +14,10 @@ const SIZES_REST = 'xs:100vw sm:100vw md:29vw lg:29vw xl:370px'
 if (import.meta.server && props.allImages) {
   const img = useImage()
   for (const list of props.allImages) {
-    list.forEach((photo, i) => img.getSizes(photo.url, { sizes: i === 0 ? SIZES_FIRST : SIZES_REST, preset: 'photo' }))
+    // Фото з Shopify CDN готувати не треба: CDN ріже їх сам на запит
+    list.forEach((photo, i) => {
+      if (!imageProvider(photo.url)) img.getSizes(photo.url, { sizes: i === 0 ? SIZES_FIRST : SIZES_REST, preset: 'photo' })
+    })
   }
 }
 
@@ -38,6 +41,7 @@ watch(
         <NuxtImg
           :src="img.url"
           :alt="img.alt"
+          :provider="imageProvider(img.url)"
           preset="photo"
           :sizes="i === 0 ? SIZES_FIRST : SIZES_REST"
           :loading="i === 0 ? undefined : 'lazy'"

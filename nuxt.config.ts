@@ -40,6 +40,9 @@ export default defineNuxtConfig({
   // xl 1280, 2xl 1536), і ширина файлу рахується від нього. Значення без префікса рахується від 1px,
   // тому завжди починати з xs:, а на xl (контейнер 1280) ставити ширину в px.
   image: {
+    // Фото товарів з Shopify CDN (utils/shopify.ts, imageProvider): ширину й WebP робить сам CDN
+    // baseURL порожній: адреси з Shopify уже повні
+    shopify: { baseURL: '' },
     presets: {
       // Якість у пресеті, а не глобально: так її бачить і useImage().getSizes (ProductGallery)
       photo: { modifiers: { format: 'webp', quality: 72 } },
