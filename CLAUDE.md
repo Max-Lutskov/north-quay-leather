@@ -30,6 +30,12 @@
 - Товари й категорії компоненти беруть лише через composables з `app/composables/useCatalog.ts`
   (`useAsyncData` з ключами `catalog:*`, за замовчуванням `[]`), а не імпортом `~/data/catalog`. Під Shopify
   міняється тільки тіло цих функцій. Якщо даних немає або запит упав, секція не показується
+- Клієнт Shopify (крок 3 плану, ще не підключений до `useCatalog.ts`): `app/utils/shopify.ts` (`shopifyFetch`,
+  кидає і на HTTP-помилку, і на `errors` у тілі), `app/utils/shopifyQueries.ts` (запити), `app/utils/shopifyMap.ts`
+  (відповідь → `ProductSummary` / `ProductDetail`; таблиці кольорів і категорій там же), типи відповідей у
+  `shared/types/shopify.ts`. Налаштування в `runtimeConfig.public` (`NUXT_PUBLIC_SHOPIFY_*` у `.env`).
+  Колір — опція `Color`, фото кольору — фото варіанта + фото товару з alt, що починається з назви кольору,
+  `subtitle` і `specs` (JSON: `details` + `dimensions`) — metafields `custom.*`
 - `app/data/brand.ts` — статична конфігурація магазину (контакти, способи оплати), не з Shopify.
   Її можна імпортувати напряму
 - `app/data/navigation.ts` — усі меню (`mainNav` для шапки й бокового меню, `footerShopNav`, `footerHelpNav`).
@@ -57,7 +63,9 @@
   handle показує Tidal Barrel Bag (`barrel-bag`, burgundy і tan). «Add to cart» без дії (кошика немає). Опис і
   рішення: `docs/superpowers/specs/2026-10-29-product-page-design.md`
 - `ProductDimensions`: `handleDropCm`, `strapCm`, `laptopInches` можуть бути `null` (у сумки цього немає): рядок
-  у «Size & fit» ховається, діаграма без ручок малює лише корпус, однакові кінці ременя показуються одним числом
+  у «Size & fit» ховається, діаграма без ручок малює лише корпус, однакові кінці ременя показуються одним числом.
+  `ProductDetail.dimensions` теж може бути `null` (у Shopify немає `specs`): тоді ховаються рядок розміру й
+  увесь блок «Size & fit»; порожні `details` ховають блок «Details»
 - Смужка «Demo store. Orders are not real.» — `layout/DemoBanner.vue` над шапкою (не закріплена), висота в токені
   `--banner-h`; hero віднімає її від висоти екрана
 - Сторінки товарів у статичну збірку додає `ProductCard` через `prerenderRoutes`. Фото всіх кольорів
@@ -105,6 +113,11 @@
   ламаються в підпапці
 
 ## Відомі пастки
+- `shopifyFetch` читає `useRuntimeConfig()`, а контекст Nuxt губиться після першого `await` у функції: другий
+  послідовний запит дає NUXT_E1001 і порожні дані без помилки на сторінці. Кілька запитів — через `Promise.all`
+  (усі стартують одразу) або `nuxtApp.runWithContext`
+- Shopify: metafield типу JSON (`custom.specs`) з CSV не імпортується, а колекції з CSV публікуються лише в
+  Online Store. Після переімпорту товарів `specs` вписати в адмінці, колекції додати в канал Headless
 - Git Bash на Windows перетворює `/north-quay-leather/` у змінних середовища на шлях на диску. Локальну збірку
   в підпапку запускати з `MSYS_NO_PATHCONV=1`
 - `package-lock.json`, створений на Windows, губить `"optional": true` у платформних пакетів `@esbuild/*`,
@@ -143,4 +156,6 @@
 9. **Крок 2 плану зроблено** (бренд North Quay Leather, фото, без Etsy і відгуків). Репозиторій перейменовано
    на `north-quay-leather`, адреси фото в `docs/products.csv` оновлено.
 10. **Каталог у Shopify залито** (2026-11-18): 8 товарів, колекції й `bestsellers` у каналі Headless, `specs`
-   заповнено вручну (JSON-metafield з CSV не імпортується). Деталі: план, крок 4. Далі крок 3 (клієнт Storefront API)
+   заповнено вручну (JSON-metafield з CSV не імпортується). Деталі: план, крок 4.
+11. **Крок 3 плану зроблено** (клієнт Storefront API, див. «Дані»); перевірено на справжніх товарах тимчасовою
+   сторінкою, її прибрано. Сайт ще на тимчасових даних. Далі крок 4 (`useCatalog.ts` з Shopify)

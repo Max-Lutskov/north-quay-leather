@@ -47,15 +47,18 @@ function strapValue([from, to]: [number, number]) {
   if (from === to) return withInches(from)
   return t('product.cmRange', { from: n(from), to: n(to), inchFrom: inch(from), inchTo: inch(to) })
 }
-// Рядки, яких у сумки немає (null), не показуємо
-const sizeRows = [
-  { key: 'height', value: withInches(dims.heightCm) },
-  { key: 'topWidth', value: withInches(dims.topWidthCm) },
-  { key: 'bottomWidth', value: withInches(dims.bottomWidthCm) },
-  { key: 'depth', value: withInches(dims.depthCm) },
-  ...(dims.handleDropCm !== null ? [{ key: 'handleDrop', value: withInches(dims.handleDropCm) }] : []),
-  ...(dims.strapCm ? [{ key: 'strap', value: strapValue(dims.strapCm) }] : []),
-]
+// Рядки, яких у сумки немає (null), не показуємо. Без розмірів узагалі (dims null) ховаються рядок розміру
+// і блок «Size & fit»
+const sizeRows = dims
+  ? [
+      { key: 'height', value: withInches(dims.heightCm) },
+      { key: 'topWidth', value: withInches(dims.topWidthCm) },
+      { key: 'bottomWidth', value: withInches(dims.bottomWidthCm) },
+      { key: 'depth', value: withInches(dims.depthCm) },
+      ...(dims.handleDropCm !== null ? [{ key: 'handleDrop', value: withInches(dims.handleDropCm) }] : []),
+      ...(dims.strapCm ? [{ key: 'strap', value: strapValue(dims.strapCm) }] : []),
+    ]
+  : []
 
 // Рядок розміру біля ціни відкриває блок «Size & fit» і прокручує до нього
 const sizeEl = ref<HTMLDetailsElement | null>(null)
@@ -138,7 +141,7 @@ useSeoMeta({
             </p>
           </fieldset>
 
-          <button type="button" class="size-line" @click="openSize">
+          <button v-if="dims" type="button" class="size-line" @click="openSize">
             {{
               t(dims.laptopInches ? 'product.sizeLine' : 'product.sizeLineShort', {
                 height: n(dims.heightCm),
@@ -157,13 +160,13 @@ useSeoMeta({
           </div>
 
           <div class="accordion">
-            <details>
+            <details v-if="item.details.length">
               <summary>{{ t('product.details') }}<span class="plus" aria-hidden="true" /></summary>
               <ul class="details-list">
                 <li v-for="line in item.details" :key="line">{{ line }}</li>
               </ul>
             </details>
-            <details ref="sizeEl" class="size">
+            <details v-if="dims" ref="sizeEl" class="size">
               <summary>{{ t('product.size') }}<span class="plus" aria-hidden="true" /></summary>
               <div class="size-body">
                 <ProductSizeDiagram :dimensions="dims" />

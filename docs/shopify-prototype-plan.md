@@ -114,6 +114,14 @@ Etsy («View all bags» без кількості); смужка «Demo store» 
 
 ## Крок 3. Клієнт Storefront API
 
+**Зроблено 2026-11-18.** Запити винесено в окремий `app/utils/shopifyQueries.ts` (fragment картки, товар за
+handle, товари колекції), щоб крок 4 їх лише викликав. Категорія для крихт — перша колекція товару з таблиці
+в `shopifyMap.ts` (bestsellers/frontpage пропускаються), без неї — `all`. Товар без жодного відомого кольору:
+`mapProductDetail` → null (404), `mapProductSummary` → null (картку не показувати). Порожні `details` ховають
+блок «Details». Перевірено тимчасовою сторінкою на barrel-bag, dome-bag, croc-box-bag, bestsellers і на
+штучних даних (невідомий колір, битий JSON). Пастка з контекстом Nuxt — у `CLAUDE.md`, «Відомі пастки»:
+у кроці 4 кілька запитів в одній функції робити через `Promise.all`.
+
 - `nuxt.config.ts`: `runtimeConfig.public.shopifyStoreDomain`, `shopifyStorefrontToken`, `shopifyApiVersion`
   (`2026-10`). Старі приватні ключі Shopify, LiqPay, Нової пошти прибрати звідси і з `.env.example`.
 - `app/utils/shopify.ts`: одна функція `shopifyFetch<T>(query, variables)`:

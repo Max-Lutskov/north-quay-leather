@@ -57,6 +57,7 @@ export interface ProductDimensions {
 
 // Повна сторінка товару. images — фото за кольором; для кольорів без фото показуємо фото defaultColor.
 // category — для хлібних крихт: handle колекції і ключ i18n її назви.
+// dimensions null — розмірів у Shopify немає (metafield custom.specs): блок «Size & fit» ховається.
 export interface ProductDetail {
   handle: string
   title: string
@@ -66,6 +67,6 @@ export interface ProductDetail {
   defaultColor: LeatherColor
   images: Partial<Record<LeatherColor, ProductImage[]>>
   details: string[]
-  dimensions: ProductDimensions
+  dimensions: ProductDimensions | null
   category: { handle: string; labelKey: string }
 }

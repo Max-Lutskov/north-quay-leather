@@ -68,16 +68,15 @@ export default defineNuxtConfig({
     // без підпапки: app.baseURL i18n додає сам)
   },
 
-  // Секрети лише в runtimeConfig без public. Значення з .env (NUXT_*).
+  // Значення з .env (NUXT_PUBLIC_*). Секретів у прототипі немає: сервера Nitro немає, а публічний токен
+  // Storefront API для того й призначений, щоб бути в браузері (docs/shopify-prototype-plan.md, «Рішення»).
   runtimeConfig: {
-    shopifyStoreDomain: '',
-    shopifyStorefrontToken: '',
-    shopifyAdminToken: '',
-    shopifyWebhookSecret: '',
-    liqpayPublicKey: '',
-    liqpayPrivateKey: '',
-    novaposhtaApiKey: '',
     public: {
+      // Storefront API: домен *.myshopify.com, публічний токен каналу Headless, версія API.
+      // Порожній домен: каталог береться з тимчасових даних у app/data/
+      shopifyStoreDomain: '',
+      shopifyStorefrontToken: '',
+      shopifyApiVersion: '2026-10',
       // Домен сайту без підпапки й без слеша в кінці, напр. https://max-lutskov.github.io.
       // Потрібен для абсолютних посилань: canonical, hreflang, og:image.
       siteUrl: '',
