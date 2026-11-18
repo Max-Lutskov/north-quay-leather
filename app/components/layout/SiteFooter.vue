@@ -33,7 +33,7 @@ const localePath = useLocalePath()
     </div>
 
     <div class="container bottom">
-      <span>© {{ new Date().getFullYear() }} Old Town Leather</span>
+      <span>© {{ new Date().getFullYear() }} North Quay Leather</span>
       <ul :aria-label="t('footer.payments')" class="payments">
         <li v-for="p in paymentMethods" :key="p">{{ p }}</li>
       </ul>

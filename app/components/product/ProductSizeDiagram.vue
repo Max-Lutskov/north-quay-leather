@@ -2,7 +2,8 @@
 import type { ProductDimensions } from '#shared/types/catalog'
 
 // Креслення сумки з розмірами: спереду (трапеція з ручкою) і збоку (глибина). Масштаб 4 одиниці viewBox
-// на сантиметр, тож пропорції справжні. Декоративне: ті самі цифри є текстом поруч (список у сторінці).
+// на сантиметр, тож пропорції справжні. Без ручок (handleDropCm = null) малюємо лише корпус.
+// Декоративне: ті самі цифри є текстом поруч (список у сторінці).
 const props = defineProps<{ dimensions: ProductDimensions }>()
 
 const { t } = useI18n()
@@ -12,7 +13,7 @@ const cm = (value: number) => t('product.cmShort', { n: n(value) })
 const S = 4
 const d = computed(() => {
   const { heightCm, topWidthCm, bottomWidthCm, depthCm, handleDropCm } = props.dimensions
-  const top = 20 + handleDropCm * S
+  const top = 20 + (handleDropCm ?? 0) * S
   const bottom = top + heightCm * S
   const cx = 154
   const topL = cx - (topWidthCm * S) / 2
@@ -38,7 +39,7 @@ const d = computed(() => {
   >
     <!-- Спереду -->
     <path class="bag" :d="`M ${d.topL} ${d.top} L ${d.topR} ${d.top} L ${d.botR} ${d.bottom} L ${d.botL} ${d.bottom} Z`" />
-    <path class="handle" :d="`M ${d.hL} ${d.top} C ${d.hL} ${d.ctrl}, ${d.hR} ${d.ctrl}, ${d.hR} ${d.top}`" />
+    <path v-if="dimensions.handleDropCm !== null" class="handle" :d="`M ${d.hL} ${d.top} C ${d.hL} ${d.ctrl}, ${d.hR} ${d.ctrl}, ${d.hR} ${d.top}`" />
 
     <!-- Висота, зліва -->
     <g class="dim">
@@ -47,10 +48,10 @@ const d = computed(() => {
     <text class="label" :x="d.topL - 32" :y="(d.top + d.bottom) / 2 + 4" text-anchor="end">{{ cm(dimensions.heightCm) }}</text>
 
     <!-- Висота ручок, справа -->
-    <g class="dim">
+    <g v-if="dimensions.handleDropCm !== null" class="dim">
       <path :d="`M ${d.topR + 14} 20 V ${d.top} M ${d.topR + 9} 20 h 10`" />
     </g>
-    <text class="label" :x="d.topR + 22" :y="(20 + d.top) / 2 + 4">{{ cm(dimensions.handleDropCm) }}</text>
+    <text v-if="dimensions.handleDropCm !== null" class="label" :x="d.topR + 22" :y="(20 + d.top) / 2 + 4">{{ cm(dimensions.handleDropCm) }}</text>
 
     <!-- Ширина зверху, над сумкою -->
     <g class="dim">

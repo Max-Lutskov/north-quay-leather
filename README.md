@@ -1,6 +1,6 @@
-# OTL shop (Nuxt 4)
+# North Quay Leather (Nuxt 4)
 
-Магазин Old Town Leather: Nuxt 4 + headless Shopify. Повний контекст у `../CONTEXT_1.md`, візуальний еталон у `../index.html` і `../product.html`.
+Демо-магазин шкіряних сумок North Quay Leather (вигаданий бренд): Nuxt 4 + headless Shopify. Замовлення не справжні. План робіт: `docs/shopify-prototype-plan.md`.
 
 ```bash
 npm install
@@ -15,6 +15,6 @@ npm run typecheck
 - `app/components/layout/`: топ-бар, шапка, футер.
 - `app/components/home/`: секції головної.
 - `app/components/ProductCard.vue`: картка товару (бестселери, каталог, «You may also like»).
-- `app/data/`: тимчасові дані до підключення Shopify (`catalog.ts`) і справжні цифри з Etsy (`brand.ts`).
+- `app/data/`: тимчасові дані до підключення Shopify (`catalog.ts`) і статична конфігурація магазину (`brand.ts`, `navigation.ts`).
 - `i18n/locales/`: тексти EN і UA. Код локалі `ua` (URL `/ua`), для Intl мапиться на `uk-UA` у `composables/useMoney.ts`.
 - `public/images/`: фото з демо. На живому сайті фото йдуть з Shopify CDN.

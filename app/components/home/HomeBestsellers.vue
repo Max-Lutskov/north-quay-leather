@@ -1,8 +1,5 @@
 <script setup lang="ts">
-import { etsy } from '~/data/brand'
-
 const { t } = useI18n()
-const n = useNumber()
 const localePath = useLocalePath()
 
 // Якщо товари не завантажились або їх немає, секцію просто не показуємо.
@@ -15,7 +12,7 @@ const { data: bestsellers } = await useBestsellers()
       <div v-reveal class="head">
         <h2 id="best-h" class="display heading">{{ t('home.bestsellersTitle') }}</h2>
         <NuxtLink :to="localePath('/collections/all')" class="text-link">
-          {{ t('home.viewAll', { count: n(etsy.designs) }, etsy.designs) }}
+          {{ t('home.viewAll') }}
         </NuxtLink>
       </div>
       <div class="grid">

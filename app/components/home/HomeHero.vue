@@ -4,9 +4,9 @@ const localePath = useLocalePath()
 
 // На десктопі три фото стоять поруч. На мобільному показуємо по одному і плавно чергуємо.
 const slides = [
-  { src: '/images/cognac-zip-tote.jpg', altKey: 'hero.altCognac', pos: '50% 35%', posMobile: '50% 35%' },
-  { src: '/images/burgundy-tote.jpg', altKey: 'hero.altBurgundy', pos: '22% 50%', posMobile: '30% 50%' },
-  { src: '/images/slouchy-hobo.jpg', altKey: 'hero.altSlouchy', pos: '50% 50%', posMobile: '50% 50%' },
+  { src: '/images/hero-1.jpg', altKey: 'hero.altCrossbody', pos: '30% 70%', posMobile: '35% 70%' },
+  { src: '/images/hero-2.jpg', altKey: 'hero.altTotes', pos: '40% 70%', posMobile: '40% 70%' },
+  { src: '/images/hero-3.jpg', altKey: 'hero.altHandles', pos: '60% 60%', posMobile: '60% 60%' },
 ]
 const INTERVAL = 5000
 
@@ -112,7 +112,7 @@ function release() {
 .grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  height: calc(100svh - var(--header-h));
+  height: calc(100svh - var(--header-h) - var(--banner-h));
   min-height: 560px;
   max-height: 900px;
 }

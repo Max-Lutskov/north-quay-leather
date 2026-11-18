@@ -1,12 +1,10 @@
 {
   "meta": {
-    "title": "Old Town Leather: handmade leather bags from Ukraine",
-    "description": "Handmade Crazy Horse leather bags from a family workshop in Ukraine. Totes, laptop bags and crossbodies, shipped worldwide."
+    "title": "North Quay Leather: leather bags",
+    "description": "Totes, shoulder bags and crossbodies in structured, quilted and embossed leather. This is a demo store, orders are not real."
   },
-  "topBar": {
-    "handmade": "Handmade in Ukraine",
-    "shipping": "Worldwide shipping",
-    "duties": "US import duties included at checkout"
+  "demo": {
+    "notice": "Demo store. Orders are not real."
   },
   "nav": {
     "label": "Main",
@@ -22,23 +20,23 @@
     "account": "Account",
     "cart": "Cart, {count} item | Cart, {count} items",
     "menu": "Menu",
-    "home": "Old Town Leather, home",
+    "home": "North Quay Leather, home",
     "close": "Close menu"
   },
   "hero": {
     "label": "New bags",
-    "title": "Leather bags,\nmade by hand\nin Ukraine",
-    "lead": "Crazy Horse leather, from our family workshop since 2017.",
+    "title": "Leather bags\nfor every day,\nmade to last",
+    "lead": "Totes, shoulder bags and crossbodies in structured, quilted and embossed leather.",
     "shop": "Shop the bags",
-    "altCognac": "Cognac leather tote with zipper and crossbody strap",
-    "altBurgundy": "Burgundy leather tote held by a model",
-    "altSlouchy": "Slouchy cognac leather hobo bag",
-    "slide": "Show photo {n} of {total}"
+    "slide": "Show photo {n} of {total}",
+    "altCrossbody": "Brown and black crossbody bags with gold clasps on a pink podium",
+    "altTotes": "Olive and light blue structured bags with rolled handles, side by side on a podium",
+    "altHandles": "A hand holding a brown tote by its black handles above a beige tote on a podium"
   },
   "home": {
     "categoriesTitle": "Shop by category",
     "bestsellersTitle": "Bestsellers",
-    "viewAll": "View all {count} bag | View all {count} bags"
+    "viewAll": "View all bags"
   },
   "category": {
     "totes": "Totes",
@@ -66,8 +64,8 @@
     "size": "Size & fit",
     "shipping": "Shipping & duties",
     "care": "Leather care",
-    "shippingText": "Every bag is made to order and ships worldwide from Ukraine in [X] working days. Import duties for US orders are included at checkout.",
-    "careText": "Light scratches rub out with a fingertip, and the leather darkens with wear. If the bag gets wet, let it dry at room temperature away from heaters.",
+    "shippingText": "This is a demo store, so nothing ships. In a live store, delivery times and any duties would be shown here.",
+    "careText": "Wipe with a soft dry cloth. If the bag gets wet, let it dry at room temperature away from heaters, and keep it out of direct sun.",
     "dims": {
       "height": "Height",
       "topWidth": "Top width",
@@ -80,46 +78,30 @@
     "cm": "{cm} cm ({inch} in)",
     "cmRange": "{from} to {to} cm ({inchFrom} to {inchTo} in)",
     "alsoLike": "You may also like",
-    "cmShort": "{n} cm"
+    "cmShort": "{n} cm",
+    "sizeLineShort": "{height} × {width} × {depth} cm"
   },
   "leather": {
-    "title": "Crazy Horse leather gets better every year",
-    "lead": "Oiled and waxed full grain. Light marks rub out with a fingertip, and the colour deepens the longer you carry it.",
+    "title": "A finish for every bag",
+    "lead": "Smooth, shaded, pebbled and embossed leathers, cut into structured shapes and finished with stitched edges and gold-tone hardware.",
     "hardware": {
-      "title": "Silver, brass or gold hardware",
-      "text": "Rivets set by hand where the handle takes the weight.",
-      "alt": "Three leather handles riveted to a cognac tote, with silver, brass and gold rivets"
+      "title": "Brass hardware",
+      "text": "Buckles and clasps in a warm gold tone.",
+      "alt": "A hand holding a brass buckle on a cognac leather strap"
     },
     "pockets": {
-      "title": "Pockets inside",
-      "text": "Slip pockets stitched inside the bag.",
-      "alt": "Inside a cognac leather bag: stitched slip pockets along the side"
+      "title": "Room inside",
+      "text": "Compartments and a zip pocket.",
+      "alt": "Looking down into a light leather bag: compartments and a zip pocket"
     },
     "patina": {
-      "title": "Ages with you",
-      "text": "Scuffs fade into a darker patina.",
-      "alt": "Flap of a cognac Crazy Horse leather crossbody with natural pull-up marks"
+      "title": "Soft shine",
+      "text": "Smooth leather with gentle creases.",
+      "alt": "Cognac leather with a handle, showing a soft shine and creases"
     }
   },
-  "reviews": {
-    "rated": "Rated {rating} out of 5",
-    "caption": "{count} customer review | {count} customer reviews",
-    "source": "{date}",
-    "items": {
-      "burgundyTote": "burgundy tote",
-      "greenTote": "green tote",
-      "greenLaptopTote": "green laptop tote"
-    },
-    "title": "Customer reviews"
-  },
-  "story": {
-    "title": "Started by a husband and wife, still a family workshop",
-    "text": "Old Town Leather is a family workshop in Vinnytsia, in the centre of Ukraine. A husband and wife started it, and today a small team cuts, stitches and finishes every bag by hand. Many of our customers have become friends we still write to.",
-    "more": "Read our story",
-    "alt": "The husband and wife who founded Old Town Leather, standing on a tree lined street"
-  },
   "footer": {
-    "tagline": "Handmade leather bags from a family workshop in Ukraine.",
+    "tagline": "Leather bags in structured, quilted and embossed finishes.",
     "shop": "Shop",
     "help": "Help",
     "contact": "Contact",

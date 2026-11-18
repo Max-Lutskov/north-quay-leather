@@ -1,51 +1,45 @@
 // Тимчасова демо-сторінка товару, поки немає Shopify: будь-який handle показує цю сумку (useProduct у
-// useCatalog.ts). Дані й фото з лістингу клієнтки на Etsy (Studded Laptop Tote); фото лише коньячної й чорної.
+// useCatalog.ts). Дані ті самі, що в docs/products.csv (Tidal Barrel Bag, два кольори).
 // Тип ProductDetail — у shared/types/catalog.ts.
 import type { ProductDetail, ProductImage } from '#shared/types/catalog'
 
-const dir = '/images/products/studded-laptop-tote'
+const dir = '/images/products/barrel-bag'
 const photo = (file: string, alt: string): ProductImage => ({ url: `${dir}/${file}.jpg`, alt })
 
 export const demoProduct: ProductDetail = {
-  handle: 'studded-laptop-tote',
-  title: 'Studded Laptop Tote',
+  handle: 'barrel-bag',
+  title: 'Tidal Barrel Bag',
   description:
-    'A structured Crazy Horse tote that fits a 14 inch laptop. Carry it by the handles, on the shoulder or crossbody with the adjustable strap.',
-  price: { amount: 102, currencyCode: 'USD' },
-  colors: ['cognac', 'black', 'chocolate', 'burgundy', 'green', 'caramel', 'red'],
-  defaultColor: 'cognac',
+    'A barrel bag in shaded leather with smooth piped edges and handle straps that run under the base. Carry it by the rolled handles or clip on the strap to wear it crossbody. The shading varies a little from bag to bag.',
+  price: { amount: 160, currencyCode: 'USD' },
+  colors: ['burgundy', 'tan'],
+  defaultColor: 'burgundy',
   images: {
-    cognac: [
-      photo('cognac-1-front', 'Cognac studded leather tote held in front, with the crossbody strap'),
-      photo('cognac-2-laptop', 'A laptop slipped into the cognac tote'),
-      photo('cognac-3-side', 'Cognac tote worn on the shoulder, side view'),
-      photo('cognac-4-strap', 'Adjusting the studded leather strap'),
-      photo('cognac-5-inside', 'Inside the cognac tote: two slip pockets and a key clip'),
-      photo('cognac-6-back', 'Back of the cognac tote with the outer pocket'),
+    burgundy: [
+      photo('burgundy-1', 'Burgundy Tidal Barrel Bag, three-quarter view with the strap'),
+      photo('burgundy-2', 'Burgundy Tidal Barrel Bag, front view'),
+      photo('burgundy-3', 'Burgundy Tidal Barrel Bag, on a stand'),
     ],
-    black: [
-      photo('black-1-front', 'Black studded leather tote held in front'),
-      photo('black-2-handles', 'Black tote held by its studded handles'),
-      photo('black-3-shoulder', 'Black tote on the shoulder with the long strap'),
-      photo('black-4-side', 'Black tote worn on the shoulder, side view'),
-      photo('black-5-crossbody', 'Black tote worn crossbody'),
+    tan: [
+      photo('tan-1', 'Tan Tidal Barrel Bag, three-quarter view with the strap'),
+      photo('tan-2', 'Tan Tidal Barrel Bag, front view with the strap'),
+      photo('tan-3', 'Tan Tidal Barrel Bag, side view'),
     ],
   },
   details: [
-    'Crazy Horse leather, cut and stitched by hand in Ukraine',
+    'Shaded leather with smooth piping',
     'Zip top closure',
-    'Two slip pockets inside, 13 × 13 cm each',
-    'Key holder with a clip',
-    'Studded handles, brass or silver hardware',
+    'Detachable, adjustable crossbody strap',
+    'Gold-tone hardware',
   ],
   dimensions: {
-    heightCm: 32,
-    topWidthCm: 32,
-    bottomWidthCm: 23,
-    depthCm: 12,
-    handleDropCm: 27,
-    strapCm: [53, 68],
-    laptopInches: 14,
+    heightCm: 20,
+    topWidthCm: 30,
+    bottomWidthCm: 30,
+    depthCm: 18,
+    handleDropCm: 14,
+    strapCm: [105, 125],
+    laptopInches: null,
   },
-  category: { handle: 'laptop-work', labelKey: 'category.laptopWork' },
+  category: { handle: 'shoulder-bags', labelKey: 'category.shoulderBags' },
 }

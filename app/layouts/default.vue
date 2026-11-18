@@ -1,5 +1,6 @@
 <template>
   <div class="page">
+    <LayoutDemoBanner />
     <LayoutSiteHeader />
     <main id="main">
       <slot />

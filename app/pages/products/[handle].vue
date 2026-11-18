@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { LeatherColor } from '#shared/types/catalog'
 
-// Сторінка товару. Поки демо: будь-який handle показує Studded Laptop Tote (useProduct у useCatalog.ts).
+// Сторінка товару. Поки демо: будь-який handle показує Tidal Barrel Bag (useProduct у useCatalog.ts).
 // Опис і рішення: docs/superpowers/specs/2026-10-29-product-page-design.md
 const route = useRoute()
 const { t } = useI18n()
@@ -42,21 +42,19 @@ const photos = computed(() => ownPhotos.value ?? item.images[item.defaultColor] 
 const dims = item.dimensions
 const inch = (cm: number) => n(Math.round((cm / 2.54) * 10) / 10)
 const withInches = (cm: number) => t('product.cm', { cm: n(cm), inch: inch(cm) })
+// Ремінь: однакові кінці ([115, 115]) показуємо одним числом
+function strapValue([from, to]: [number, number]) {
+  if (from === to) return withInches(from)
+  return t('product.cmRange', { from: n(from), to: n(to), inchFrom: inch(from), inchTo: inch(to) })
+}
+// Рядки, яких у сумки немає (null), не показуємо
 const sizeRows = [
   { key: 'height', value: withInches(dims.heightCm) },
   { key: 'topWidth', value: withInches(dims.topWidthCm) },
   { key: 'bottomWidth', value: withInches(dims.bottomWidthCm) },
   { key: 'depth', value: withInches(dims.depthCm) },
-  { key: 'handleDrop', value: withInches(dims.handleDropCm) },
-  {
-    key: 'strap',
-    value: t('product.cmRange', {
-      from: n(dims.strapCm[0]),
-      to: n(dims.strapCm[1]),
-      inchFrom: inch(dims.strapCm[0]),
-      inchTo: inch(dims.strapCm[1]),
-    }),
-  },
+  ...(dims.handleDropCm !== null ? [{ key: 'handleDrop', value: withInches(dims.handleDropCm) }] : []),
+  ...(dims.strapCm ? [{ key: 'strap', value: strapValue(dims.strapCm) }] : []),
 ]
 
 // Рядок розміру біля ціни відкриває блок «Size & fit» і прокручує до нього
@@ -87,7 +85,7 @@ const related = computed(() => bestsellers.value.filter((p) => p.handle !== item
 
 const firstPhoto = item.images[item.defaultColor]?.[0]
 useSeoMeta({
-  title: () => `${item.title} | Old Town Leather`,
+  title: () => `${item.title} | North Quay Leather`,
   description: item.description,
   ogTitle: item.title,
   ogDescription: item.description,
@@ -142,7 +140,7 @@ useSeoMeta({
 
           <button type="button" class="size-line" @click="openSize">
             {{
-              t('product.sizeLine', {
+              t(dims.laptopInches ? 'product.sizeLine' : 'product.sizeLineShort', {
                 height: n(dims.heightCm),
                 width: n(dims.topWidthCm),
                 depth: n(dims.depthCm),
@@ -175,7 +173,7 @@ useSeoMeta({
                     <dd>{{ row.value }}</dd>
                   </div>
                 </dl>
-                <p class="laptop">{{ t('product.dims.laptop', { n: dims.laptopInches }) }}</p>
+                <p v-if="dims.laptopInches" class="laptop">{{ t('product.dims.laptop', { n: dims.laptopInches }) }}</p>
               </div>
             </details>
             <details>

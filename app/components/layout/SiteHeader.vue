@@ -44,7 +44,7 @@ const compact = computed(() => mounted.value && y.value > 4)
 
       <NuxtLink :to="localePath('/')" class="brand" :aria-label="t('header.home')">
         <LogoMark class="brand-mark" />
-        <span class="brand-name">Old Town Leather</span>
+        <span class="brand-name">North Quay Leather</span>
       </NuxtLink>
 
       <div class="actions">
@@ -111,7 +111,7 @@ const compact = computed(() => mounted.value && y.value > 4)
   gap: 4px;
   text-align: center;
 }
-/* Монограма тієї ж висоти, що й колишній напис OTL (38px), тож висота шапки й --header-h не змінились */
+/* Монограма тієї ж висоти, що й колишній напис (38px), тож висота шапки й --header-h не змінились */
 .brand-mark {
   width: 38px;
   height: 38px;

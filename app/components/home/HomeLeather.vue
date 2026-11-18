@@ -4,7 +4,7 @@
 const { t } = useI18n()
 const details = [
   { key: 'pockets', image: '/images/detail-pockets.jpg' },
-  { key: 'patina', image: '/images/detail-flap.jpg' },
+  { key: 'patina', image: '/images/detail-patina.jpg' },
 ] as const
 </script>
 

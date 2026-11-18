@@ -6,7 +6,7 @@ useSeoMeta({
   description: () => t('meta.description'),
   ogTitle: () => t('meta.title'),
   ogDescription: () => t('meta.description'),
-  ogImage: absolutePublicUrl('/images/cognac-zip-tote.jpg'),
+  ogImage: absolutePublicUrl('/images/hero-1.jpg'),
   twitterCard: 'summary_large_image',
 })
 </script>
@@ -17,7 +17,5 @@ useSeoMeta({
     <HomeCategories />
     <HomeBestsellers />
     <HomeLeather />
-    <HomeReviews />
-    <HomeStory />
   </div>
 </template>

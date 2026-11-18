@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { etsy } from '~/data/brand'
 import type { NavItem } from '~/types/navigation'
 
 // Бокове меню для мобільної версії: виїжджає зліва, фон затемнюється.
@@ -11,7 +10,6 @@ const props = defineProps<{
 const emit = defineEmits<{ close: [] }>()
 
 const { t, locale } = useI18n()
-const n = useNumber()
 const localePath = useLocalePath()
 const switchLocalePath = useSwitchLocalePath()
 const otherLocale = computed(() => (locale.value === 'en' ? 'ua' : 'en'))
@@ -106,9 +104,7 @@ function onKeydown(e: KeyboardEvent) {
         </div>
 
         <div class="foot" :style="{ '--i': items.length + 1 }">
-          <span class="rating">{{ n(etsy.rating) }}</span>
-          <span>{{ t('reviews.caption', { count: n(etsy.reviews) }, etsy.reviews) }}</span>
-          <span>{{ t('topBar.handmade') }}</span>
+          <span>{{ t('demo.notice') }}</span>
         </div>
       </div>
     </div>
@@ -227,15 +223,6 @@ function onKeydown(e: KeyboardEvent) {
   font-size: 14px;
   color: var(--muted);
 }
-.rating {
-  font-family: var(--font-display);
-  font-stretch: var(--display-stretch);
-  font-size: 44px;
-  line-height: 1;
-  color: var(--ink);
-  margin-bottom: 6px;
-}
-
 /* Пункти виїжджають по черзі слідом за панеллю; при закритті зникають разом. */
 .link,
 .secondary,

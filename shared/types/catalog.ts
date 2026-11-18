@@ -43,15 +43,16 @@ export interface HomeCategory {
   image: string
 }
 
-// Розміри сумки в сантиметрах (дюйми рахуються на сторінці). strapCm — регульований ремінь, від і до.
+// Розміри сумки в сантиметрах (дюйми рахуються на сторінці). strapCm — ремінь, від і до (однакові числа, якщо
+// не регулюється). null — у сумки цього немає: рядок розміру на сторінці ховається.
 export interface ProductDimensions {
   heightCm: number
   topWidthCm: number
   bottomWidthCm: number
   depthCm: number
-  handleDropCm: number
-  strapCm: [number, number]
-  laptopInches: number
+  handleDropCm: number | null
+  strapCm: [number, number] | null
+  laptopInches: number | null
 }
 
 // Повна сторінка товару. images — фото за кольором; для кольорів без фото показуємо фото defaultColor.
