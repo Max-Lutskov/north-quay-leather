@@ -15,6 +15,10 @@ if (!product.value) {
   throw createError({ statusCode: 404, statusMessage: 'Product not found' })
 }
 const item = product.value
+// Опис і «Деталі» мовою сторінки (переклад UA у app/data/productCopy.ts)
+const copy = useProductCopy()
+const description = computed(() => copy.description(item))
+const details = computed(() => copy.details(item))
 
 // Колір. Сторінки статичні, тож ?color= застосовуємо після монтування (гідрація збігається з HTML збірки)
 // і стежимо за route.query: під час гідрації статичної сторінки адреса на мить буває без query.
@@ -128,9 +132,9 @@ const buyLabel = computed(() => {
 const firstPhoto = item.images[item.defaultColor]?.[0]
 useSeoMeta({
   title: () => `${item.title} | North Quay Leather`,
-  description: item.description,
+  description: description,
   ogTitle: item.title,
-  ogDescription: item.description,
+  ogDescription: description,
   ogImage: firstPhoto ? absolutePublicUrl(firstPhoto.url) : undefined,
   twitterCard: 'summary_large_image',
 })
@@ -160,7 +164,7 @@ useSeoMeta({
         <div class="info">
           <div class="intro">
             <h1 class="display title">{{ item.title }}</h1>
-            <p class="lead">{{ item.description }}</p>
+            <p class="lead">{{ description }}</p>
             <p class="price">{{ money(price) }}</p>
           </div>
 
@@ -206,10 +210,10 @@ useSeoMeta({
           </div>
 
           <div class="accordion">
-            <details v-if="item.details.length">
+            <details v-if="details.length">
               <summary>{{ t('product.details') }}<span class="plus" aria-hidden="true" /></summary>
               <ul class="details-list">
-                <li v-for="line in item.details" :key="line">{{ line }}</li>
+                <li v-for="line in details" :key="line">{{ line }}</li>
               </ul>
             </details>
             <details v-if="dims" ref="sizeEl" class="size">
@@ -228,6 +232,9 @@ useSeoMeta({
             <details>
               <summary>{{ t('product.shipping') }}<span class="plus" aria-hidden="true" /></summary>
               <p class="text">{{ t('product.shippingText') }}</p>
+              <p class="text">
+                <NuxtLink :to="localePath('/shipping')" class="text-link">{{ t('product.shippingMore') }}</NuxtLink>
+              </p>
             </details>
             <details>
               <summary>{{ t('product.care') }}<span class="plus" aria-hidden="true" /></summary>

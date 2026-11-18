@@ -22,6 +22,7 @@ export const bestsellers: ProductSummary[] = [
     compareAtPrice: null,
     colors: ['green'],
     imageColor: 'green',
+    colorImages: {},
     badge: null,
   },
   {
@@ -33,6 +34,9 @@ export const bestsellers: ProductSummary[] = [
     compareAtPrice: null,
     colors: ['burgundy', 'tan'],
     imageColor: 'burgundy',
+    colorImages: {
+      tan: { url: '/images/products/barrel-bag/tan-1.jpg', alt: 'Tan Tidal Barrel Bag, three-quarter view with the strap' },
+    },
     badge: null,
   },
   {
@@ -44,6 +48,7 @@ export const bestsellers: ProductSummary[] = [
     compareAtPrice: null,
     colors: ['burgundy'],
     imageColor: 'burgundy',
+    colorImages: {},
     badge: null,
   },
   {
@@ -55,6 +60,9 @@ export const bestsellers: ProductSummary[] = [
     compareAtPrice: null,
     colors: ['burgundy', 'black'],
     imageColor: 'burgundy',
+    colorImages: {
+      black: { url: '/images/products/dome-bag/black-1.jpg', alt: 'Black Beacon Dome Bag, front view' },
+    },
     badge: null,
   },
 ]

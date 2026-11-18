@@ -33,6 +33,8 @@ export interface ProductSummary {
   colors: LeatherColor[]
   // Колір сумки на фото картки: його показуємо вибраним за замовчуванням.
   imageColor: LeatherColor
+  // Фото картки для кожного кольору (фото варіанта). Кольору без свого фото тут немає: картка лишає image
+  colorImages: Partial<Record<LeatherColor, ProductImage>>
   badge: 'new' | 'bestseller' | null
 }
 

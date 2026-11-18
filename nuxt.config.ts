@@ -1,3 +1,6 @@
+// @ts-expect-error -- типів Node (@types/node) у проєкті немає, а сам модуль у Node є
+import { existsSync } from 'node:fs'
+
 export default defineNuxtConfig({
   compatibilityDate: '2026-10-01',
   devtools: { enabled: true },
@@ -100,6 +103,10 @@ export default defineNuxtConfig({
       siteUrl: '',
       // true на демо (GitHub Pages): сторінки не індексуються. На бойовому сайті лишити false.
       noindex: false,
+      // Відео оформлення на «Про нас»: секція є, лише якщо файл лежить у public/demo/ на момент збірки
+      // (без файлу не було б битого плеєра). Постер необов'язковий
+      checkoutVideo: existsSync('public/demo/checkout.mp4'),
+      checkoutPoster: existsSync('public/demo/checkout-poster.jpg'),
     },
   },
 })

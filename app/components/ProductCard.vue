@@ -6,6 +6,7 @@ const props = defineProps<{ product: ProductSummary }>()
 const { t } = useI18n()
 const localePath = useLocalePath()
 const money = useMoney()
+const copy = useProductCopy()
 
 const badgeKey = computed(() => (props.product.badge ? `badge.${props.product.badge}` : null))
 
@@ -25,6 +26,9 @@ const mobileColors = computed(() => {
 })
 const hiddenOnMobile = computed(() => props.product.colors.length - mobileColors.value.length)
 
+// Фото вибраного кольору; якщо в кольору свого фото немає, лишається головне
+const photo = computed(() => props.product.colorImages[selected.value] ?? props.product.image)
+
 // Статична збірка (обхід посилань вимкнено): картка сама додає сторінку свого товару до пререндеру
 prerenderRoutes(localePath(`/products/${props.product.handle}`))
 </script>
@@ -32,12 +36,12 @@ prerenderRoutes(localePath(`/products/${props.product.handle}`))
 <template>
   <article class="card">
     <NuxtLink :to="href" class="photo media" tabindex="-1" aria-hidden="true">
-      <NuxtImg :src="product.image.url" :alt="product.image.alt" :provider="imageProvider(product.image.url)" preset="photo" sizes="xs:50vw sm:50vw md:34vw lg:25vw xl:300px" loading="lazy" />
+      <NuxtImg :src="photo.url" :alt="photo.alt" :provider="imageProvider(photo.url)" preset="photo" sizes="xs:50vw sm:50vw md:34vw lg:25vw xl:300px" loading="lazy" />
       <span v-if="badgeKey" class="badge">{{ t(badgeKey) }}</span>
     </NuxtLink>
     <div class="info">
       <NuxtLink :to="href" class="title">{{ product.title }}</NuxtLink>
-      <span class="subtitle">{{ product.subtitle }}</span>
+      <span class="subtitle">{{ copy.subtitle(product) }}</span>
       <span class="prices">
         <span class="price">
           <span v-if="product.compareAtPrice" class="visually-hidden">{{ t('product.salePrice') }}</span>

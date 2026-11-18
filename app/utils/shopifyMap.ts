@@ -113,6 +113,13 @@ export function mapProductSummary(product: ShopifyProductSummary): ProductSummar
   const image = product.featuredImage ?? product.variants.nodes.find((v) => v.image && variantColor(v))?.image ?? null
   if (!colors.length || !image) return null
 
+  // Фото варіанта кожного кольору: вибір кольору на картці одразу міняє фото
+  const colorImages: Partial<Record<LeatherColor, ProductImage>> = {}
+  for (const color of colors) {
+    const own = product.variants.nodes.find((v) => v.image && variantColor(v) === color)?.image
+    if (own) colorImages[color] = toImage(own, product.title)
+  }
+
   return {
     handle: product.handle,
     title: product.title,
@@ -123,6 +130,7 @@ export function mapProductSummary(product: ShopifyProductSummary): ProductSummar
     compareAtPrice: null,
     colors,
     imageColor: imageColor(image, colors) ?? colors[0]!,
+    colorImages,
     badge: null,
   }
 }

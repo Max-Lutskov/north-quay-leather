@@ -77,7 +77,7 @@
     "size": "Size & fit",
     "shipping": "Shipping & duties",
     "care": "Leather care",
-    "shippingText": "This is a demo store, so nothing ships. In a live store, delivery times and any duties would be shown here.",
+    "shippingText": "Orders ship within 1–2 business days. Delivery takes 1–3 business days in Ukraine, 5–10 to Europe and 7–14 to the US. Duties outside Ukraine are paid by the recipient. Returns and exchanges within 14 days. Sample terms: this is a demo store.",
     "careText": "Wipe with a soft dry cloth. If the bag gets wet, let it dry at room temperature away from heaters, and keep it out of direct sun.",
     "dims": {
       "height": "Height",
@@ -95,7 +95,8 @@
     "sizeLineShort": "{height} × {width} × {depth} cm",
     "soldOut": "Sold out",
     "adding": "Adding to cart",
-    "added": "Added to cart"
+    "added": "Added to cart",
+    "shippingMore": "Full shipping and returns terms"
   },
   "cart": {
     "title": "Cart",
@@ -159,12 +160,31 @@
     "bags": "The bags in the catalog are photographed samples, chosen for their shapes: structured totes, a barrel bag, a dome bag and small crossbodies in smooth, quilted, pebbled and embossed leather.",
     "howTitle": "How the store works",
     "how": "The site is built with Nuxt and uses Shopify as its back end. Products, prices, colours and the checkout come from a Shopify development store, and changes made in the Shopify admin appear here after the next build of the site.",
-    "photos": "Product photos by Muneeb Malhotra on Pexels."
+    "photos": "Product photos by Muneeb Malhotra on Pexels.",
+    "videoTitle": "See the checkout",
+    "videoText": "A short recording of the whole path: a bag goes into the cart, then the Shopify checkout and a test payment.",
+    "videoLabel": "Screen recording of the checkout in the demo store"
   },
   "shipping": {
     "title": "Shipping & returns",
-    "lead": "This is a demo store, so orders are not real: nothing is charged and nothing ships.",
-    "live": "In a live store, this page would list delivery times, duties and the returns policy."
+    "lead": "Sample terms: this is a demo store, so nothing actually ships.",
+    "processingTitle": "Processing",
+    "processing": "Orders are packed and handed to the carrier within 1–2 business days.",
+    "deliveryTitle": "Delivery",
+    "delivery": {
+      "ukraine": "Ukraine: 1–3 business days with Nova Poshta, to a branch or by courier.",
+      "europe": "Europe: 5–10 business days, tracked.",
+      "us": "United States: 7–14 business days, tracked."
+    },
+    "deliveryCost": "The delivery cost depends on the country and is shown at checkout before you pay.",
+    "dutiesTitle": "Duties & taxes",
+    "duties": "Orders shipped outside Ukraine may be charged import duties and taxes in the destination country. The recipient pays them on delivery, and the carrier tells you the amount in advance.",
+    "returnsTitle": "Returns",
+    "returns": "You can return a bag within 14 days of delivery if it is unused, with the tags on and in its original packaging. Write to us and we will send the return instructions. The refund goes back to the card you paid with within 5 business days of the bag reaching us. Return shipping is paid by the customer, unless the bag is faulty.",
+    "exchangeTitle": "Exchanges",
+    "exchange": "Within the same 14 days you can exchange a bag for another colour or model. Write to us and we will hold the new bag while yours is on its way back.",
+    "contactTitle": "Contact",
+    "contact": "Questions about an order, a return or an exchange: write to us and we will reply within one business day."
   },
   "error": {
     "notFoundTitle": "Page not found",
