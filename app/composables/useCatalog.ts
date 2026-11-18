@@ -11,8 +11,10 @@ import { demoProduct } from '~/data/product'
 // Скільки товарів беремо в списки: магазин маленький (до 20 сумок, план, крок 5), пагінація не потрібна
 const LIST_LIMIT = 50
 
+// Потрібні і домен, і токен: з одним доменом усі запити падали б, і сайт зібрався б порожнім
 function hasShopify() {
-  return Boolean(useRuntimeConfig().public.shopifyStoreDomain)
+  const { shopifyStoreDomain, shopifyStorefrontToken } = useRuntimeConfig().public
+  return Boolean(shopifyStoreDomain && shopifyStorefrontToken)
 }
 
 function toSummaries(nodes: ShopifyProductSummary[]): ProductSummary[] {

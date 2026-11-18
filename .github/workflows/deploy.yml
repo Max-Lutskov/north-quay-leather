@@ -31,10 +31,14 @@ jobs:
           echo "NUXT_PUBLIC_I18N_BASE_URL=https://${OWNER,,}.github.io" >> "$GITHUB_ENV"
         env:
           OWNER: ${{ github.repository_owner }}
+      # Storefront API: секрети репозиторію (Settings → Secrets → Actions). Без них збірка проходить
+      # на тимчасових даних з app/data/
       - run: npx nuxt generate
         env:
           NUXT_APP_BASE_URL: /${{ github.event.repository.name }}/
           NUXT_PUBLIC_NOINDEX: 'true'
+          NUXT_PUBLIC_SHOPIFY_STORE_DOMAIN: ${{ secrets.NUXT_PUBLIC_SHOPIFY_STORE_DOMAIN }}
+          NUXT_PUBLIC_SHOPIFY_STOREFRONT_TOKEN: ${{ secrets.NUXT_PUBLIC_SHOPIFY_STOREFRONT_TOKEN }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: .output/public

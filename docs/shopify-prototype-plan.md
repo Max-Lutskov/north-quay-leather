@@ -265,6 +265,17 @@ laptop-work і mini-crossbody (ключі `nav.backpacks`, `footer.beltsWallets`
 
 ## Крок 9. Деплой
 
+**Зроблено 2026-11-18 частково.** Секрети передаються в `nuxt generate` (`deploy.yml`); каталог і кошик
+вмикаються лише з обома значеннями (`hasShopify` у `useCatalog.ts`), інакше тимчасові дані.
+`nitro.prerender.failOnError: true`: якщо Shopify недоступний, збірка падає і лишається попередній деплой.
+Перевірено збірку в підпапці `/north-quay-leather/` з ключами і збірку без ключів.
+**Лишилось Максу:** (1) додати секрети репозиторію (Claude не вписує токени в сервіси):
+`gh secret set NUXT_PUBLIC_SHOPIFY_STORE_DOMAIN -R Max-Lutskov/north-quay-leather` (значення
+`north-quay-leather.myshopify.com`) і `gh secret set NUXT_PUBLIC_SHOPIFY_STOREFRONT_TOKEN -R
+Max-Lutskov/north-quay-leather` (токен з `.env`), потім Actions → Run workflow; (2) `schedule` у workflow
+(раз на 6 годин, напр. `cron: '17 */6 * * *'`) Claude додати не зміг: зміну відхилила система дозволів;
+(3) пройти шлях із кроку 7 на живому демо з телефона.
+
 - Секрети репозиторію `NUXT_PUBLIC_SHOPIFY_STORE_DOMAIN`, `NUXT_PUBLIC_SHOPIFY_STOREFRONT_TOKEN` (додає Макс),
   передати в крок `nuxt generate` у `deploy.yml`.
 - У workflow додати `schedule` (раз на 6 годин): зміни в адмінці Shopify з'являються на сайті без пушу.
