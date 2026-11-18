@@ -188,6 +188,11 @@ handle, товари колекції), щоб крок 4 їх лише викл
 
 ## Крок 5. Сторінки колекцій
 
+**Зроблено 2026-11-18.** Маршрути колекцій для збірки задані списком у `nitro.prerender.routes` (усі 4
+категорії + `all`, EN і `/ua`), а не через `prerenderRoutes` у компонентах. Заголовок сторінки —
+`collectionTitleKey` у `shopifyMap.ts` (невідомий handle → 404). У футері backpacks і belts-wallets замінено на
+laptop-work і mini-crossbody (ключі `nav.backpacks`, `footer.beltsWallets` прибрано).
+
 - `pages/collections/[handle].vue`. `all` — усі товари. Сітка з тих самих `ProductCard`.
 - Сортування (ціна, назва) і фільтр за кольором — у браузері, по вже завантаженому списку (товарів до 20,
   запитів до Shopify на клік не робити). Стан у `?sort=&color=`, тим самим способом, що `?color=` на

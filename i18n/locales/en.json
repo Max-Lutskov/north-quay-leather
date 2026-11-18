@@ -11,7 +11,6 @@
     "shop": "Shop",
     "totes": "Totes",
     "shoulderBags": "Shoulder bags",
-    "backpacks": "Backpacks",
     "story": "Our story"
   },
   "header": {
@@ -43,6 +42,22 @@
     "shoulderBags": "Shoulder bags",
     "laptopWork": "Laptop & work bags",
     "miniCrossbody": "Mini & crossbody"
+  },
+  "collection": {
+    "all": "All bags",
+    "count": "{count} bag | {count} bags",
+    "colour": "Colour",
+    "allColours": "All colours",
+    "sort": "Sort",
+    "sorts": {
+      "featured": "Featured",
+      "price-asc": "Price, low to high",
+      "price-desc": "Price, high to low",
+      "name": "Name, A to Z"
+    },
+    "emptyFilter": "No bags in this colour here yet.",
+    "empty": "No bags here yet.",
+    "reset": "Show all colours"
   },
   "badge": {
     "new": "New",
@@ -105,7 +120,6 @@
     "shop": "Shop",
     "help": "Help",
     "contact": "Contact",
-    "beltsWallets": "Belts & wallets",
     "shipping": "Shipping & duties",
     "returns": "Returns",
     "care": "Leather care",

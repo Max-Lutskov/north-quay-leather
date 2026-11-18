@@ -54,8 +54,16 @@ export default defineNuxtConfig({
   nitro: {
     prerender: {
       crawlLinks: false,
-      // Сторінки товарів додає ProductCard через prerenderRoutes (кожна картка — свою сторінку)
-      routes: ['/', '/ua'],
+      // Сторінки товарів додає ProductCard через prerenderRoutes (кожна картка — свою сторінку), а картки є
+      // на сторінках колекцій, тож збираються всі товари. Колекції — ті, на які ведуть меню, плитки й футер
+      routes: [
+        '/',
+        '/ua',
+        ...['all', 'totes', 'shoulder-bags', 'laptop-work', 'mini-crossbody'].flatMap((c) => [
+          `/collections/${c}`,
+          `/ua/collections/${c}`,
+        ]),
+      ],
     },
   },
 

@@ -37,6 +37,13 @@ const categoryLabelKeys: Record<string, string> = {
   'mini-crossbody': 'category.miniCrossbody',
 }
 
+// Ключ i18n заголовка сторінки колекції. null — такої сторінки на сайті немає (404)
+export function collectionTitleKey(handle: string): string | null {
+  if (handle === 'all') return 'collection.all'
+  if (handle === 'bestsellers') return 'home.bestsellersTitle'
+  return categoryLabelKeys[handle] ?? null
+}
+
 function toMoney(money: ShopifyMoney): Money {
   return { amount: Number(money.amount), currencyCode: money.currencyCode }
 }
@@ -152,6 +159,6 @@ export function mapProductDetail(product: ShopifyProductDetail): ProductDetail |
     // Товар поза категоріями: крихти ведуть на весь каталог
     category: categoryHandle
       ? { handle: categoryHandle, labelKey: categoryLabelKeys[categoryHandle]! }
-      : { handle: 'all', labelKey: 'nav.shop' },
+      : { handle: 'all', labelKey: 'collection.all' },
   }
 }

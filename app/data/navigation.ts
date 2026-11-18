@@ -13,8 +13,8 @@ export const mainNav: NavItem[] = [
 export const footerShopNav: NavItem[] = [
   { to: '/collections/totes', key: 'nav.totes' },
   { to: '/collections/shoulder-bags', key: 'nav.shoulderBags' },
-  { to: '/collections/backpacks', key: 'nav.backpacks' },
-  { to: '/collections/belts-wallets', key: 'footer.beltsWallets' },
+  { to: '/collections/laptop-work', key: 'category.laptopWork' },
+  { to: '/collections/mini-crossbody', key: 'category.miniCrossbody' },
 ]
 
 // Футер, колонка «Help»
