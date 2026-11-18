@@ -27,8 +27,32 @@ export interface ShopifySelectedOption {
 }
 
 export interface ShopifyVariant {
+  id: string
+  availableForSale: boolean
   selectedOptions: ShopifySelectedOption[]
   image: ShopifyImage | null
+}
+
+// Помилки мутацій кошика: GraphQL відповідає успішно, а причина лежить тут
+export interface ShopifyUserError {
+  field: string[] | null
+  message: string
+}
+
+// Кошик: fragment CartFields
+export interface ShopifyCart {
+  id: string
+  checkoutUrl: string
+  totalQuantity: number
+  cost: { subtotalAmount: ShopifyMoney }
+  lines: {
+    nodes: {
+      id: string
+      quantity: number
+      cost: { totalAmount: ShopifyMoney }
+      merchandise: ShopifyVariant & { product: { handle: string; title: string } }
+    }[]
+  }
 }
 
 // Товар у списках (картка): fragment ProductSummaryFields

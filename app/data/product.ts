@@ -41,5 +41,10 @@ export const demoProduct: ProductDetail = {
     strapCm: [105, 125],
     laptopInches: null,
   },
+  // Без Shopify кошика немає: такі id Storefront API відхилить, і кнопка чесно покаже помилку
+  variants: [
+    { id: 'demo-barrel-bag-burgundy', color: 'burgundy', availableForSale: true },
+    { id: 'demo-barrel-bag-tan', color: 'tan', availableForSale: true },
+  ],
   category: { handle: 'shoulder-bags', labelKey: 'category.shoulderBags' },
 }

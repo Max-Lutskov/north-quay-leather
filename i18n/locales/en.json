@@ -94,7 +94,29 @@
     "cmRange": "{from} to {to} cm ({inchFrom} to {inchTo} in)",
     "alsoLike": "You may also like",
     "cmShort": "{n} cm",
-    "sizeLineShort": "{height} × {width} × {depth} cm"
+    "sizeLineShort": "{height} × {width} × {depth} cm",
+    "soldOut": "Sold out",
+    "adding": "Adding to cart",
+    "added": "Added to cart"
+  },
+  "cart": {
+    "title": "Cart",
+    "close": "Close cart",
+    "empty": "Your cart is empty.",
+    "browse": "Shop the bags",
+    "subtotal": "Subtotal",
+    "taxNote": "Shipping and taxes are calculated at checkout.",
+    "checkout": "Checkout",
+    "quantity": "Quantity of {title}",
+    "decrease": "One less {title}",
+    "increase": "One more {title}",
+    "remove": "Remove",
+    "removeLabel": "Remove {title} from cart",
+    "addError": "Could not add to cart. Check your connection and try again.",
+    "updateError": "Could not update the cart. Try again.",
+    "demoTitle": "How to test the checkout",
+    "demoText": "The demo checkout is behind the Shopify store password {password}. Open the store page, enter the password, then come back here and press Checkout. Pay with card number 1 (any name, any future date, any CVV) and a US address.",
+    "demoUnlock": "Open the store page"
   },
   "leather": {
     "title": "A finish for every bag",

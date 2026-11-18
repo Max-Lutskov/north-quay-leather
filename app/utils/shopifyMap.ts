@@ -8,7 +8,9 @@ import type {
   ProductImage,
   ProductSummary,
 } from '#shared/types/catalog'
+import type { Cart } from '#shared/types/cart'
 import type {
+  ShopifyCart,
   ShopifyImage,
   ShopifyMoney,
   ShopifyProductDetail,
@@ -142,6 +144,12 @@ export function mapProductDetail(product: ShopifyProductDetail): ProductDetail |
     if (own.length) images[color] = own.map((i) => toImage(i, product.title))
   }
 
+  // По одному варіанту на колір (у нас опція лише Color)
+  const variants = colors.map((color) => {
+    const v = product.variants.nodes.find((n) => variantColor(n) === color)!
+    return { id: v.id, color, availableForSale: v.availableForSale }
+  })
+
   const { details, dimensions } = parseSpecs(product.specs?.value)
   const categoryHandle = product.collections.nodes.map((c) => c.handle).find((h) => h in categoryLabelKeys)
 
@@ -156,9 +164,30 @@ export function mapProductDetail(product: ShopifyProductDetail): ProductDetail |
     images,
     details,
     dimensions,
+    variants,
     // Товар поза категоріями: крихти ведуть на весь каталог
     category: categoryHandle
       ? { handle: categoryHandle, labelKey: categoryLabelKeys[categoryHandle]! }
       : { handle: 'all', labelKey: 'collection.all' },
+  }
+}
+
+// Кошик Shopify → Cart. Суми й кількість беремо як є, без перерахунку в браузері
+export function mapCart(cart: ShopifyCart): Cart {
+  return {
+    id: cart.id,
+    checkoutUrl: cart.checkoutUrl,
+    totalQuantity: cart.totalQuantity,
+    subtotal: toMoney(cart.cost.subtotalAmount),
+    lines: cart.lines.nodes.map((line) => ({
+      id: line.id,
+      quantity: line.quantity,
+      total: toMoney(line.cost.totalAmount),
+      variantId: line.merchandise.id,
+      handle: line.merchandise.product.handle,
+      title: line.merchandise.product.title,
+      color: variantColor(line.merchandise),
+      image: line.merchandise.image ? toImage(line.merchandise.image, line.merchandise.product.title) : null,
+    })),
   }
 }

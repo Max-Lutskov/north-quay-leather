@@ -86,6 +86,42 @@ const showBar = computed(() => passed.value && !footerVisible.value)
 
 const related = computed(() => bestsellers.value.filter((p) => p.handle !== item.handle))
 
+// Кошик: додаємо варіант вибраного кольору. «Додано» лише після відповіді Shopify, помилка — текстом під кнопкою.
+// Наявність з моменту збірки сайту; якщо товар уже розпродано, Shopify поверне помилку, і ми її покажемо
+const { add, openCart } = useCart()
+const variant = computed(() => item.variants.find((v) => v.color === selected.value))
+const soldOut = computed(() => !variant.value?.availableForSale)
+const adding = ref(false)
+const added = ref(false)
+const addFailed = ref(false)
+const { start: hideAdded } = useTimeoutFn(() => (added.value = false), 2500, { immediate: false })
+async function addToCart() {
+  if (!variant.value || soldOut.value || adding.value) return
+  adding.value = true
+  added.value = false
+  addFailed.value = false
+  const ok = await add(variant.value.id)
+  adding.value = false
+  if (ok) {
+    added.value = true
+    hideAdded()
+    openCart()
+  } else {
+    addFailed.value = true
+  }
+}
+// Інший колір — інший варіант: старий стан кнопки не стосується нового
+watch(selected, () => {
+  added.value = false
+  addFailed.value = false
+})
+const buyLabel = computed(() => {
+  if (soldOut.value) return t('product.soldOut')
+  if (adding.value) return t('product.adding')
+  if (added.value) return t('product.added')
+  return null
+})
+
 const firstPhoto = item.images[item.defaultColor]?.[0]
 useSeoMeta({
   title: () => `${item.title} | North Quay Leather`,
@@ -153,10 +189,17 @@ useSeoMeta({
           </button>
 
           <div class="buy">
-            <!-- Кошика ще немає: кнопка без дії, жодних фейкових «Added» -->
-            <button ref="mainBtn" type="button" class="btn btn--primary add">
-              {{ t('product.addToCart', { price: money(item.price) }) }}
+            <button
+              ref="mainBtn"
+              type="button"
+              class="btn btn--primary add"
+              :disabled="soldOut || adding"
+              :aria-busy="adding"
+              @click="addToCart"
+            >
+              {{ buyLabel ?? t('product.addToCart', { price: money(item.price) }) }}
             </button>
+            <p v-if="addFailed" class="buy-error" role="alert">{{ t('cart.addError') }}</p>
           </div>
 
           <div class="accordion">
@@ -206,7 +249,9 @@ useSeoMeta({
         <b>{{ money(item.price) }}</b>
         {{ t(`color.${selected}`) }}
       </span>
-      <button type="button" class="btn btn--primary">{{ t('product.addToCartShort') }}</button>
+      <button type="button" class="btn btn--primary" :disabled="soldOut || adding" :aria-busy="adding" @click="addToCart">
+        {{ buyLabel ?? t('product.addToCartShort') }}
+      </button>
     </div>
   </div>
 </template>
@@ -372,6 +417,12 @@ useSeoMeta({
   width: 100%;
   min-height: 56px;
   font-size: 16px;
+}
+.buy-error {
+  margin: 0;
+  font-size: 14px;
+  color: var(--accent);
+  text-align: center;
 }
 
 /* Розкривні блоки */

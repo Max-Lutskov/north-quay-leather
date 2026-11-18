@@ -8,7 +8,7 @@ const productSummaryFields = /* GraphQL */ `
     title
     featuredImage { url altText }
     priceRange { minVariantPrice { amount currencyCode } }
-    variants(first: 20) { nodes { selectedOptions { name value } image { url altText } } }
+    variants(first: 20) { nodes { id availableForSale selectedOptions { name value } image { url altText } } }
     subtitle: metafield(namespace: "custom", key: "subtitle") { value }
   }
 `
@@ -46,5 +46,64 @@ export const collectionProductsQuery = /* GraphQL */ `
     collection(handle: $handle) {
       products(first: $first) { nodes { ...ProductSummaryFields } }
     }
+  }
+`
+
+// Кошик (Cart API). Кожна мутація повертає кошик цілком і userErrors
+const cartFields = /* GraphQL */ `
+  fragment CartFields on Cart {
+    id
+    checkoutUrl
+    totalQuantity
+    cost { subtotalAmount { amount currencyCode } }
+    lines(first: 50) {
+      nodes {
+        id
+        quantity
+        cost { totalAmount { amount currencyCode } }
+        merchandise {
+          ... on ProductVariant {
+            id
+            availableForSale
+            selectedOptions { name value }
+            image { url altText }
+            product { handle title }
+          }
+        }
+      }
+    }
+  }
+`
+
+export const cartQuery = /* GraphQL */ `
+  ${cartFields}
+  query Cart($id: ID!) { cart(id: $id) { ...CartFields } }
+`
+
+export const cartCreateMutation = /* GraphQL */ `
+  ${cartFields}
+  mutation CartCreate($lines: [CartLineInput!]) {
+    cartCreate(input: { lines: $lines }) { cart { ...CartFields } userErrors { field message } }
+  }
+`
+
+export const cartLinesAddMutation = /* GraphQL */ `
+  ${cartFields}
+  mutation CartLinesAdd($cartId: ID!, $lines: [CartLineInput!]!) {
+    cartLinesAdd(cartId: $cartId, lines: $lines) { cart { ...CartFields } userErrors { field message } }
+  }
+`
+
+export const cartLinesUpdateMutation = /* GraphQL */ `
+  ${cartFields}
+  mutation CartLinesUpdate($cartId: ID!, $lines: [CartLineUpdateInput!]!) {
+    cartLinesUpdate(cartId: $cartId, lines: $lines) { cart { ...CartFields } userErrors { field message } }
+  }
+`
+
+export const cartLinesRemoveMutation = /* GraphQL */ `
+  ${cartFields}
+  mutation CartLinesRemove($cartId: ID!, $lineIds: [ID!]!) {
+    cartLinesRemove(cartId: $cartId, lineIds: $lineIds) { cart { ...CartFields } userErrors { field message } }
   }
 `

@@ -6,6 +6,7 @@
       <slot />
     </main>
     <LayoutSiteFooter />
+    <CartDrawer />
   </div>
 </template>
 

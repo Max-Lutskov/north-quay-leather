@@ -19,6 +19,12 @@ watch(() => route.fullPath, () => {
 const mounted = useMounted()
 const { y } = useWindowScroll()
 const compact = computed(() => mounted.value && y.value > 4)
+
+// Кошик живе в браузері (localStorage + Shopify), тож лічильник показуємо лише після монтування.
+// Шапка є на кожній сторінці: тут збережений кошик і завантажується (один раз за сесію)
+const { count, load, openCart } = useCart()
+const cartCount = computed(() => (mounted.value ? count.value : 0))
+onMounted(load)
 </script>
 
 <template>
@@ -63,9 +69,15 @@ const compact = computed(() => mounted.value && y.value > 4)
         <NuxtLink :to="localePath('/account')" class="icon-btn extra" :aria-label="t('header.account')">
           <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="8" r="4" /><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6" /></svg>
         </NuxtLink>
-        <!-- TODO: відкривати кошик-drawer (Shopify Cart API) -->
-        <button type="button" class="icon-btn" :aria-label="t('header.cart', { count: 0 }, 0)">
+        <button
+          type="button"
+          class="icon-btn cart-btn"
+          :aria-label="t('header.cart', { count: cartCount }, cartCount)"
+          aria-haspopup="dialog"
+          @click="openCart"
+        >
           <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1.2 12H6.2L5 8z" /><path d="M9 8V6a3 3 0 0 1 6 0v2" /></svg>
+          <span v-if="cartCount" class="cart-count" aria-hidden="true">{{ cartCount }}</span>
         </button>
       </div>
     </div>
@@ -149,6 +161,26 @@ const compact = computed(() => mounted.value && y.value > 4)
 }
 .icon-btn:hover {
   color: var(--accent);
+}
+/* Лічильник кошика: кружечок у правому верхньому куті іконки */
+.cart-btn {
+  position: relative;
+}
+.cart-count {
+  position: absolute;
+  top: 6px;
+  right: 4px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  box-sizing: border-box;
+  border-radius: 9px;
+  background: var(--ink);
+  color: var(--paper);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 18px;
+  text-align: center;
 }
 .burger {
   display: none;

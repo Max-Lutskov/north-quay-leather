@@ -20,7 +20,7 @@
 ## Цільова архітектура (ще не підключено)
 - Дані: headless **Shopify** (Storefront API). Товари, колекції, варіанти кольору, ціни, наявність.
   Додатковий контент (матеріали, розміри, догляд) у metafields. Фото з Shopify CDN
-- Кошик: Shopify Cart API, ID кошика в cookie
+- Кошик: Shopify Cart API, ID кошика в cookie (у прототипі — localStorage, див. «Що зараз MOCK»)
 - Оплата закордон: Shopify Checkout. Україна: власна форма з Новою поштою + LiqPay, замовлення створюється в Shopify
   з серверного callback. **Жодних фейкових «успіхів»**: «Додано» чи «Замовлено» лише після реальної відповіді
 - Продакшн потребує сервера Nitro (callback-и, вебхуки, кошик), наприклад Cloudflare Worker як у Protskov.
@@ -64,10 +64,16 @@
   міняти, на них посилається `docs/products.csv`), `hero-1..3.jpg`, `detail-*.jpg`. Плитки категорій беруть
   фото товарів (поле `image` у `homeCategories`). Логотип «R» чужого бренду на шкірі затертий на фото товарів і
   на hero-1..3 (`../photos-raw/` не чіпали); на нових фото перевіряти
-- Тимчасові дані `app/data/catalog.ts` (4 бестселери з каталогу з 8 сумок) і `product.ts` (демо-сторінка
-  товару) ті самі, що в `docs/products.csv`. Сторінка товару `pages/products/[handle].vue` — демо: будь-який
-  handle показує Tidal Barrel Bag (`barrel-bag`, burgundy і tan). «Add to cart» без дії (кошика немає). Опис і
-  рішення: `docs/superpowers/specs/2026-10-29-product-page-design.md`
+- Запасні дані `app/data/catalog.ts` (4 бестселери з каталогу з 8 сумок) і `product.ts` (без Shopify будь-який
+  handle показує Tidal Barrel Bag) ті самі, що в `docs/products.csv`. Сторінка товару
+  `pages/products/[handle].vue`, опис і рішення: `docs/superpowers/specs/2026-10-29-product-page-design.md`
+- Кошик (кроки 6–7 плану): `composables/useCart.ts` — Cart API прямо з браузера, стан у `useState`
+  (`cart`, `count`, `pending`, `error`, `isOpen`), ID кошика в localStorage (`nql-cart-id`, читається після
+  монтування; шапка викликає `load`). Запити через `nuxtApp.runWithContext` (обробники кліків поза контекстом
+  Nuxt). Кнопка на сторінці товару додає варіант вибраного кольору (`ProductDetail.variants`) і відкриває
+  `cart/CartDrawer.vue`; «Added» лише після відповіді Shopify, помилка текстом під кнопкою. У панелі суми лише від
+  Shopify, перехід на `checkoutUrl`, блок «How to test the checkout» з паролем вітрини (`demoStorePassword` у
+  `data/brand.ts`): після пароля Shopify показує свою головну, треба повернутись і натиснути Checkout ще раз
 - `ProductDimensions`: `handleDropCm`, `strapCm`, `laptopInches` можуть бути `null` (у сумки цього немає): рядок
   у «Size & fit» ховається, діаграма без ручок малює лише корпус, однакові кінці ременя показуються одним числом.
   `ProductDetail.dimensions` теж може бути `null` (у Shopify немає `specs`): тоді ховаються рядок розміру й

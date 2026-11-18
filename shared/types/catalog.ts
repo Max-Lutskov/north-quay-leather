@@ -55,6 +55,13 @@ export interface ProductDimensions {
   laptopInches: number | null
 }
 
+// Варіант товару (один колір) для кошика: id — merchandiseId у Storefront API
+export interface ProductVariantRef {
+  id: string
+  color: LeatherColor
+  availableForSale: boolean
+}
+
 // Повна сторінка товару. images — фото за кольором; для кольорів без фото показуємо фото defaultColor.
 // category — для хлібних крихт: handle колекції і ключ i18n її назви.
 // dimensions null — розмірів у Shopify немає (metafield custom.specs): блок «Size & fit» ховається.
@@ -68,5 +75,7 @@ export interface ProductDetail {
   images: Partial<Record<LeatherColor, ProductImage[]>>
   details: string[]
   dimensions: ProductDimensions | null
+  // Варіанти за кольором (по одному на колір), кнопка «Add to cart» додає варіант вибраного кольору
+  variants: ProductVariantRef[]
   category: { handle: string; labelKey: string }
 }
