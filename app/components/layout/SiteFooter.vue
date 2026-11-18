@@ -4,6 +4,7 @@ import { footerHelpNav, footerShopNav } from '~/data/navigation'
 
 const { t } = useI18n()
 const localePath = useLocalePath()
+const contactLines = [contacts.email, contacts.instagram, contacts.phone].filter((v): v is string => Boolean(v))
 </script>
 
 <template>
@@ -24,11 +25,10 @@ const localePath = useLocalePath()
         <NuxtLink v-for="l in footerHelpNav" :key="l.key" :to="localePath(l.to)">{{ t(l.key) }}</NuxtLink>
       </nav>
 
-      <div class="col">
+      <!-- Контакти показуємо, лише коли вони є (у демо їх немає, заглушки не показуємо) -->
+      <div v-if="contactLines.length" class="col">
         <span class="col-title">{{ t('footer.contact') }}</span>
-        <span>{{ contacts.email ?? '[email]' }}</span>
-        <span>{{ contacts.instagram ?? '[Instagram]' }}</span>
-        <span>{{ contacts.phone ?? '[phone]' }}</span>
+        <span v-for="line in contactLines" :key="line">{{ line }}</span>
       </div>
     </div>
 

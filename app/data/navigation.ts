@@ -18,9 +18,8 @@ export const footerShopNav: NavItem[] = [
 ]
 
 // Футер, колонка «Help»
+// У прототипі лише дві службові сторінки (план, крок 8); догляд за шкірою — на сторінці товару
 export const footerHelpNav: NavItem[] = [
-  { to: '/shipping', key: 'footer.shipping' },
-  { to: '/returns', key: 'footer.returns' },
-  { to: '/leather-care', key: 'footer.care' },
-  { to: '/contact', key: 'footer.contact' },
+  { to: '/shipping', key: 'footer.shippingReturns' },
+  { to: '/about', key: 'nav.story' },
 ]

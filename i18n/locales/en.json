@@ -15,8 +15,6 @@
   },
   "header": {
     "switchLanguage": "Українська версія",
-    "search": "Search",
-    "account": "Account",
     "cart": "Cart, {count} item | Cart, {count} items",
     "menu": "Menu",
     "home": "North Quay Leather, home",
@@ -142,10 +140,8 @@
     "shop": "Shop",
     "help": "Help",
     "contact": "Contact",
-    "shipping": "Shipping & duties",
-    "returns": "Returns",
-    "care": "Leather care",
-    "payments": "Payment methods"
+    "payments": "Payment methods",
+    "shippingReturns": "Shipping & returns"
   },
   "color": {
     "black": "Black",
@@ -156,5 +152,25 @@
     "tan": "Tan",
     "red": "Red",
     "caramel": "Caramel"
+  },
+  "about": {
+    "title": "Our story",
+    "lead": "North Quay Leather is a made-up brand. This store is a working demo built by Lulu Studio: a real catalog, cart and Shopify checkout, with nothing actually for sale.",
+    "bags": "The bags in the catalog are photographed samples, chosen for their shapes: structured totes, a barrel bag, a dome bag and small crossbodies in smooth, quilted, pebbled and embossed leather.",
+    "howTitle": "How the store works",
+    "how": "The site is built with Nuxt and uses Shopify as its back end. Products, prices, colours and the checkout come from a Shopify development store, and changes made in the Shopify admin appear here after the next build of the site.",
+    "photos": "Product photos by Muneeb Malhotra on Pexels."
+  },
+  "shipping": {
+    "title": "Shipping & returns",
+    "lead": "This is a demo store, so orders are not real: nothing is charged and nothing ships.",
+    "live": "In a live store, this page would list delivery times, duties and the returns policy."
+  },
+  "error": {
+    "notFoundTitle": "Page not found",
+    "notFoundText": "This page does not exist or has moved. The bags are all in the catalog.",
+    "title": "Something went wrong",
+    "text": "The page could not be loaded. Try again in a moment, or go to the catalog.",
+    "home": "Back to home"
   }
 }

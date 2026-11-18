@@ -49,8 +49,8 @@ export default defineNuxtConfig({
     },
   },
 
-  // Статична збірка (демо на GitHub Pages): сторінки задаємо явно. Обхід посилань вимкнено,
-  // бо каталогу, «Про нас» тощо ще немає і їхні 404 зупиняли б збірку. Додавати сюди нові сторінки.
+  // Статична збірка (демо на GitHub Pages): сторінки задаємо явно, обхід посилань вимкнено, щоб випадкове
+  // посилання не тягнуло в збірку зайве. Нову сторінку додавати сюди (EN і /ua).
   nitro: {
     prerender: {
       crawlLinks: false,
@@ -59,6 +59,10 @@ export default defineNuxtConfig({
       routes: [
         '/',
         '/ua',
+        '/about',
+        '/ua/about',
+        '/shipping',
+        '/ua/shipping',
         ...['all', 'totes', 'shoulder-bags', 'laptop-work', 'mini-crossbody'].flatMap((c) => [
           `/collections/${c}`,
           `/ua/collections/${c}`,

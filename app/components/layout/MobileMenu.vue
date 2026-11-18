@@ -92,7 +92,6 @@ function onKeydown(e: KeyboardEvent) {
         </nav>
 
         <div class="secondary" :style="{ '--i': items.length }">
-          <NuxtLink :to="localePath('/account')" @click="emit('close')">{{ t('header.account') }}</NuxtLink>
           <NuxtLink
             :to="switchLocalePath(otherLocale)"
             class="lang"
