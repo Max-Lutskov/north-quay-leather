@@ -29,6 +29,7 @@ export interface ShopifySelectedOption {
 export interface ShopifyVariant {
   id: string
   availableForSale: boolean
+  price: ShopifyMoney
   selectedOptions: ShopifySelectedOption[]
   image: ShopifyImage | null
 }
@@ -37,6 +38,19 @@ export interface ShopifyVariant {
 export interface ShopifyUserError {
   field: string[] | null
   message: string
+}
+
+// Попередження мутацій кошика: напр. MERCHANDISE_OUT_OF_STOCK — рядок не додано, хоча userErrors порожні
+export interface ShopifyCartWarning {
+  code: string
+  message: string
+}
+
+// Відповідь будь-якої мутації кошика (cartCreate, cartLinesAdd/Update/Remove)
+export interface ShopifyCartMutationResult {
+  cart: ShopifyCart | null
+  userErrors: ShopifyUserError[]
+  warnings: ShopifyCartWarning[]
 }
 
 // Кошик: fragment CartFields

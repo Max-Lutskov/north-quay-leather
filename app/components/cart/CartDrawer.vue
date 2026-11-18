@@ -21,6 +21,8 @@ const scrollLocked = useScrollLock(() => (import.meta.client ? document.document
 watch(isOpen, async (open) => {
   if (!import.meta.client) return
   scrollLocked.value = open
+  // Сторінка під панеллю недоступна ні для Tab, ні для читачів екрана (панель телепортована в body, поза .page)
+  document.querySelector('.page')?.toggleAttribute('inert', open)
   if (open) {
     // Після «Add to cart» фокус уже на body (кнопка була вимкнена, поки йшов запит): повертаємо на кошик у шапці
     const active = document.activeElement as HTMLElement | null
@@ -32,6 +34,23 @@ watch(isOpen, async (open) => {
     returnFocus = null
   }
 })
+// Кнопки під час запиту не вимикаємо (disabled скидає фокус на body і ламає пастку фокуса), а ігноруємо натиск
+function changeQuantity(lineId: string, quantity: number) {
+  if (!pending.value) update(lineId, quantity)
+}
+function removeLine(lineId: string) {
+  if (!pending.value) remove(lineId)
+}
+// Останній рядок прибрано: фокус з кнопки, якої вже немає, — на «Закрити»
+watch(
+  () => lines.value.length,
+  async (n) => {
+    if (n || !isOpen.value) return
+    await nextTick()
+    closeBtn.value?.focus({ preventScroll: true })
+  },
+)
+
 // Перехід на іншу сторінку (посилання в панелі) закриває її
 const route = useRoute()
 watch(() => route.fullPath, closeCart)
@@ -109,18 +128,18 @@ function onKeydown(e: KeyboardEvent) {
                   <div class="qty" role="group" :aria-label="t('cart.quantity', { title: line.title })">
                     <button
                       type="button"
-                      :disabled="pending"
+                      :aria-disabled="pending"
                       :aria-label="t('cart.decrease', { title: line.title })"
-                      @click="update(line.id, line.quantity - 1)"
+                      @click="changeQuantity(line.id, line.quantity - 1)"
                     >
                       <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14" /></svg>
                     </button>
                     <span class="qty-value">{{ line.quantity }}</span>
                     <button
                       type="button"
-                      :disabled="pending"
+                      :aria-disabled="pending"
                       :aria-label="t('cart.increase', { title: line.title })"
-                      @click="update(line.id, line.quantity + 1)"
+                      @click="changeQuantity(line.id, line.quantity + 1)"
                     >
                       <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14" /></svg>
                     </button>
@@ -130,9 +149,9 @@ function onKeydown(e: KeyboardEvent) {
                 <button
                   type="button"
                   class="remove"
-                  :disabled="pending"
+                  :aria-disabled="pending"
                   :aria-label="t('cart.removeLabel', { title: line.title })"
-                  @click="remove(line.id)"
+                  @click="removeLine(line.id)"
                 >
                   {{ t('cart.remove') }}
                 </button>
@@ -305,7 +324,7 @@ function onKeydown(e: KeyboardEvent) {
   color: var(--ink);
   cursor: pointer;
 }
-.qty button:hover:not(:disabled) {
+.qty button:hover:not([aria-disabled="true"]) {
   color: var(--accent);
 }
 .qty-value {
@@ -328,7 +347,12 @@ function onKeydown(e: KeyboardEvent) {
   text-underline-offset: 3px;
   cursor: pointer;
 }
-.remove:hover:not(:disabled) {
+.qty button[aria-disabled="true"],
+.remove[aria-disabled="true"] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.remove:hover:not([aria-disabled="true"]) {
   color: var(--accent);
 }
 

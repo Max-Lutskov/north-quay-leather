@@ -87,16 +87,19 @@ const showBar = computed(() => passed.value && !footerVisible.value)
 const related = computed(() => bestsellers.value.filter((p) => p.handle !== item.handle))
 
 // Кошик: додаємо варіант вибраного кольору. «Додано» лише після відповіді Shopify, помилка — текстом під кнопкою.
-// Наявність з моменту збірки сайту; якщо товар уже розпродано, Shopify поверне помилку, і ми її покажемо
-const { add, openCart } = useCart()
+// Наявність з моменту збірки сайту; якщо товар уже розпродано, Shopify поверне попередження, і useCart
+// вважатиме це невдачею. Поки йде будь-яка дія з кошиком (напр. у панелі), кнопка чекає
+const { add, openCart, pending: cartPending } = useCart()
 const variant = computed(() => item.variants.find((v) => v.color === selected.value))
 const soldOut = computed(() => !variant.value?.availableForSale)
+// Ціна вибраного кольору (якщо кольори колись матимуть різну ціну)
+const price = computed(() => variant.value?.price ?? item.price)
 const adding = ref(false)
 const added = ref(false)
 const addFailed = ref(false)
 const { start: hideAdded } = useTimeoutFn(() => (added.value = false), 2500, { immediate: false })
 async function addToCart() {
-  if (!variant.value || soldOut.value || adding.value) return
+  if (!variant.value || soldOut.value || adding.value || cartPending.value) return
   adding.value = true
   added.value = false
   addFailed.value = false
@@ -158,7 +161,7 @@ useSeoMeta({
           <div class="intro">
             <h1 class="display title">{{ item.title }}</h1>
             <p class="lead">{{ item.description }}</p>
-            <p class="price">{{ money(item.price) }}</p>
+            <p class="price">{{ money(price) }}</p>
           </div>
 
           <fieldset class="colors">
@@ -193,11 +196,11 @@ useSeoMeta({
               ref="mainBtn"
               type="button"
               class="btn btn--primary add"
-              :disabled="soldOut || adding"
+              :disabled="soldOut || adding || cartPending"
               :aria-busy="adding"
               @click="addToCart"
             >
-              {{ buyLabel ?? t('product.addToCart', { price: money(item.price) }) }}
+              {{ buyLabel ?? t('product.addToCart', { price: money(price) }) }}
             </button>
             <p v-if="addFailed" class="buy-error" role="alert">{{ t('cart.addError') }}</p>
           </div>
@@ -246,10 +249,10 @@ useSeoMeta({
 
     <div class="buy-bar" :class="{ show: showBar }" :inert="!showBar">
       <span class="bar-text">
-        <b>{{ money(item.price) }}</b>
+        <b>{{ money(price) }}</b>
         {{ t(`color.${selected}`) }}
       </span>
-      <button type="button" class="btn btn--primary" :disabled="soldOut || adding" :aria-busy="adding" @click="addToCart">
+      <button type="button" class="btn btn--primary" :disabled="soldOut || adding || cartPending" :aria-busy="adding" @click="addToCart">
         {{ buyLabel ?? t('product.addToCartShort') }}
       </button>
     </div>

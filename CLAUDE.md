@@ -70,7 +70,10 @@
 - Кошик (кроки 6–7 плану): `composables/useCart.ts` — Cart API прямо з браузера, стан у `useState`
   (`cart`, `count`, `pending`, `error`, `isOpen`), ID кошика в localStorage (`nql-cart-id`, читається після
   монтування; шапка викликає `load`). Запити через `nuxtApp.runWithContext` (обробники кліків поза контекстом
-  Nuxt). Кнопка на сторінці товару додає варіант вибраного кольору (`ProductDetail.variants`) і відкриває
+  Nuxt), строго по черзі й після завантаження збереженого кошика. `warnings` мутацій (напр. немає на складі)
+  — невдача, як і `userErrors`: кошик оновлюється до справжнього стану, але «Added» не показується. Поки
+  панель відкрита, `.page` отримує `inert`; кнопки в панелі під час запиту `aria-disabled`, а не `disabled`
+  (інакше фокус падає на body). Кнопка на сторінці товару додає варіант вибраного кольору (`ProductDetail.variants`) і відкриває
   `cart/CartDrawer.vue`; «Added» лише після відповіді Shopify, помилка текстом під кнопкою. У панелі суми лише від
   Shopify, перехід на `checkoutUrl`, блок «How to test the checkout» з паролем вітрини (`demoStorePassword` у
   `data/brand.ts`): після пароля Shopify показує свою головну, треба повернутись і натиснути Checkout ще раз

@@ -8,7 +8,7 @@ const productSummaryFields = /* GraphQL */ `
     title
     featuredImage { url altText }
     priceRange { minVariantPrice { amount currencyCode } }
-    variants(first: 20) { nodes { id availableForSale selectedOptions { name value } image { url altText } } }
+    variants(first: 20) { nodes { id availableForSale price { amount currencyCode } selectedOptions { name value } image { url altText } } }
     subtitle: metafield(namespace: "custom", key: "subtitle") { value }
   }
 `
@@ -65,6 +65,7 @@ const cartFields = /* GraphQL */ `
           ... on ProductVariant {
             id
             availableForSale
+            price { amount currencyCode }
             selectedOptions { name value }
             image { url altText }
             product { handle title }
@@ -83,27 +84,27 @@ export const cartQuery = /* GraphQL */ `
 export const cartCreateMutation = /* GraphQL */ `
   ${cartFields}
   mutation CartCreate($lines: [CartLineInput!]) {
-    cartCreate(input: { lines: $lines }) { cart { ...CartFields } userErrors { field message } }
+    cartCreate(input: { lines: $lines }) { cart { ...CartFields } userErrors { field message } warnings { code message } }
   }
 `
 
 export const cartLinesAddMutation = /* GraphQL */ `
   ${cartFields}
   mutation CartLinesAdd($cartId: ID!, $lines: [CartLineInput!]!) {
-    cartLinesAdd(cartId: $cartId, lines: $lines) { cart { ...CartFields } userErrors { field message } }
+    cartLinesAdd(cartId: $cartId, lines: $lines) { cart { ...CartFields } userErrors { field message } warnings { code message } }
   }
 `
 
 export const cartLinesUpdateMutation = /* GraphQL */ `
   ${cartFields}
   mutation CartLinesUpdate($cartId: ID!, $lines: [CartLineUpdateInput!]!) {
-    cartLinesUpdate(cartId: $cartId, lines: $lines) { cart { ...CartFields } userErrors { field message } }
+    cartLinesUpdate(cartId: $cartId, lines: $lines) { cart { ...CartFields } userErrors { field message } warnings { code message } }
   }
 `
 
 export const cartLinesRemoveMutation = /* GraphQL */ `
   ${cartFields}
   mutation CartLinesRemove($cartId: ID!, $lineIds: [ID!]!) {
-    cartLinesRemove(cartId: $cartId, lineIds: $lineIds) { cart { ...CartFields } userErrors { field message } }
+    cartLinesRemove(cartId: $cartId, lineIds: $lineIds) { cart { ...CartFields } userErrors { field message } warnings { code message } }
   }
 `

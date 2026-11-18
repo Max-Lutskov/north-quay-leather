@@ -31,8 +31,17 @@ jobs:
           echo "NUXT_PUBLIC_I18N_BASE_URL=https://${OWNER,,}.github.io" >> "$GITHUB_ENV"
         env:
           OWNER: ${{ github.repository_owner }}
-      # Storefront API: секрети репозиторію (Settings → Secrets → Actions). Без них збірка проходить
-      # на тимчасових даних з app/data/
+      # Storefront API: секрети репозиторію (Settings → Secrets → Actions). Без них сайт зібрався б на тимчасових
+      # даних з app/data/, а кошик не працював би: на main це помилка, і лишається попередній деплой
+      - if: github.ref == 'refs/heads/main'
+        run: |
+          if [ -z "$DOMAIN" ] || [ -z "$TOKEN" ]; then
+            echo "::error::Set repository secrets NUXT_PUBLIC_SHOPIFY_STORE_DOMAIN and NUXT_PUBLIC_SHOPIFY_STOREFRONT_TOKEN"
+            exit 1
+          fi
+        env:
+          DOMAIN: ${{ secrets.NUXT_PUBLIC_SHOPIFY_STORE_DOMAIN }}
+          TOKEN: ${{ secrets.NUXT_PUBLIC_SHOPIFY_STOREFRONT_TOKEN }}
       - run: npx nuxt generate
         env:
           NUXT_APP_BASE_URL: /${{ github.event.repository.name }}/

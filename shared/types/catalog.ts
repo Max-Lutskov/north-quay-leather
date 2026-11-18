@@ -60,6 +60,7 @@ export interface ProductVariantRef {
   id: string
   color: LeatherColor
   availableForSale: boolean
+  price: Money
 }
 
 // Повна сторінка товару. images — фото за кольором; для кольорів без фото показуємо фото defaultColor.

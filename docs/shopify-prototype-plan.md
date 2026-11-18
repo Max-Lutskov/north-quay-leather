@@ -274,7 +274,16 @@ laptop-work і mini-crossbody (ключі `nav.backpacks`, `footer.beltsWallets`
 `north-quay-leather.myshopify.com`) і `gh secret set NUXT_PUBLIC_SHOPIFY_STOREFRONT_TOKEN -R
 Max-Lutskov/north-quay-leather` (токен з `.env`), потім Actions → Run workflow; (2) `schedule` у workflow
 (раз на 6 годин, напр. `cron: '17 */6 * * *'`) Claude додати не зміг: зміну відхилила система дозволів;
-(3) пройти шлях із кроку 7 на живому демо з телефона.
+(3) пройти шлях із кроку 7 на живому демо з телефона. Без секретів workflow на `main` тепер падає з
+підказкою (лишається попередній деплой), а не збирає сайт на тимчасових даних.
+
+**Рев'ю кроків 3–9 (Fable 5.2, 2026-11-18)**: виправлено фальшиве «Added» при `warnings` Cart API
+(розпродано), гонку `add` з `load`, застарілий ID кошика, фокус і `inert` у панелі, порожню `/collections/all`
+при збої Shopify (тепер 500 і падіння збірки), спільну помилку в панелі, ціну за варіантом, типи поза
+`shared/types`/`app/types`, тиху збірку без секретів. Не виправлено (свідомо, низький ризик):
+`history.replaceState` для `?color=`/`?sort=` не повідомляє роутер, тож посилання на ту саму сторінку
+(напр. «Shop» на `/collections/all` з фільтром) не скидає фільтр; заміна на `router.replace` повертає
+пастку з гідрацією з `CLAUDE.md`.
 
 - Секрети репозиторію `NUXT_PUBLIC_SHOPIFY_STORE_DOMAIN`, `NUXT_PUBLIC_SHOPIFY_STOREFRONT_TOKEN` (додає Макс),
   передати в крок `nuxt generate` у `deploy.yml`.

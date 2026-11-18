@@ -147,7 +147,7 @@ export function mapProductDetail(product: ShopifyProductDetail): ProductDetail |
   // По одному варіанту на колір (у нас опція лише Color)
   const variants = colors.map((color) => {
     const v = product.variants.nodes.find((n) => variantColor(n) === color)!
-    return { id: v.id, color, availableForSale: v.availableForSale }
+    return { id: v.id, color, availableForSale: v.availableForSale, price: toMoney(v.price) }
   })
 
   const { details, dimensions } = parseSpecs(product.specs?.value)

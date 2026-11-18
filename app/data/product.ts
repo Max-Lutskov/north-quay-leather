@@ -43,8 +43,8 @@ export const demoProduct: ProductDetail = {
   },
   // Без Shopify кошика немає: такі id Storefront API відхилить, і кнопка чесно покаже помилку
   variants: [
-    { id: 'demo-barrel-bag-burgundy', color: 'burgundy', availableForSale: true },
-    { id: 'demo-barrel-bag-tan', color: 'tan', availableForSale: true },
+    { id: 'demo-barrel-bag-burgundy', color: 'burgundy', availableForSale: true, price: { amount: 160, currencyCode: 'USD' } },
+    { id: 'demo-barrel-bag-tan', color: 'tan', availableForSale: true, price: { amount: 160, currencyCode: 'USD' } },
   ],
   category: { handle: 'shoulder-bags', labelKey: 'category.shoulderBags' },
 }

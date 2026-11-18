@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { LeatherColor, ProductSummary } from '#shared/types/catalog'
+import { collectionSorts as SORTS, type CollectionSort as SortKey } from '~/types/collection'
 
 // Сторінка колекції: all — усі товари, інакше колекція Shopify з таким handle (немає — 404).
 // Сортування й фільтр за кольором — у браузері по вже завантаженому списку (товарів мало, запитів на клік немає).
@@ -15,14 +16,16 @@ const titleKey = collectionTitleKey(handle)
 if (!titleKey) {
   throw createError({ statusCode: 404, statusMessage: 'Collection not found' })
 }
-const { data } = handle === 'all' ? await useAllProducts() : await useCollection(handle)
+const { data, error } = handle === 'all' ? await useAllProducts() : await useCollection(handle)
+// Запит до Shopify упав: помилка, а не порожня сторінка «тут поки немає сумок» (збірка зупиниться, failOnError)
+if (error.value) {
+  throw createError({ statusCode: 500, statusMessage: 'Catalog unavailable' })
+}
 if (!data.value) {
   throw createError({ statusCode: 404, statusMessage: 'Collection not found' })
 }
 const products: ProductSummary[] = data.value
 
-const SORTS = ['featured', 'price-asc', 'price-desc', 'name'] as const
-type SortKey = (typeof SORTS)[number]
 const sort = ref<SortKey>('featured')
 const color = ref<LeatherColor | null>(null)
 
