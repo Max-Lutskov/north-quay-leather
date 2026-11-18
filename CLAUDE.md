@@ -151,7 +151,8 @@
   `app/data/productCopy.ts` за handle (показ через `useProductCopy`, без перекладу — англійський текст). Змінили текст
   товару в адмінці або додали товар — оновити й цей файл
 - Відео оформлення на «Про нас» (`public/demo/checkout.mp4`, постер `checkout-poster.jpg`) показується, лише якщо файл
-  є на момент збірки (`checkoutVideo` у `nuxt.config.ts`)
+  є на момент збірки (`checkoutVideo` у `nuxt.config.ts`). Перезапис: `python scripts/record-checkout.py` (репетиція
+  без замовлення), з `--final` — оплата й файли в `public/demo/` (кожен запуск лишає тестове замовлення в Shopify)
 - Множина в текстах: форми через «|» (EN дві, UA три, правило в `i18n/i18n.config.ts`), число третім аргументом:
   `t(key, { count: n(x) }, x)`
 - Dev-сервер не завжди підхоплює зміни в `i18n/locales/*.json`: на сторінці видно ключі на кшталт `color.cognac`.
