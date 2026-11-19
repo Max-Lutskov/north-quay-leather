@@ -70,8 +70,36 @@ const motion = usePreferredReducedMotion()
 async function openSize() {
   if (!sizeEl.value) return
   sizeEl.value.open = true
+  // Спершу колонка стає на своє місце (якщо перестала влазити), потім прокрутка: інакше ціль зсувається
+  measurePinned()
   await nextTick()
   sizeEl.value.scrollIntoView({ behavior: motion.value === 'reduce' ? 'auto' : 'smooth', block: 'start' })
+}
+
+// Колонка з інформацією липка, лише коли повністю влазить у вікно під шапкою. На низькому екрані або з
+// відкритими блоками вона вища за вікно: тоді вона звичайна і гортається разом зі сторінкою (власної
+// прокрутки в неї немає). Міряємо після монтування: з сервера колонка приходить звичайною.
+const infoEl = ref<HTMLElement | null>(null)
+const pinned = ref(false)
+const PIN_GAP = 16
+function measurePinned() {
+  const el = infoEl.value
+  if (!el) return
+  const top = Number.parseFloat(getComputedStyle(el).top) || 0
+  pinned.value = top + el.offsetHeight + PIN_GAP <= window.innerHeight
+}
+onMounted(measurePinned)
+useResizeObserver(infoEl, measurePinned)
+useEventListener('resize', measurePinned)
+// Блок відкрили, і колонка перестала влазити: вона повертається на своє місце в сторінці, тож показуємо
+// відкритий блок, якщо він опинився поза екраном
+async function onToggle(e: Event) {
+  const el = e.currentTarget as HTMLDetailsElement
+  const wasPinned = pinned.value
+  measurePinned()
+  if (!el.open || !wasPinned || pinned.value) return
+  await nextTick()
+  el.scrollIntoView({ block: 'nearest' })
 }
 
 // Мобільна смуга знизу з ціною і кнопкою: з'являється, коли основна кнопка пішла за верхній край екрана
@@ -161,7 +189,7 @@ useSeoMeta({
           :label="t('product.photos', { title: item.title })"
         />
 
-        <div class="info">
+        <div ref="infoEl" class="info" :class="{ pinned }">
           <div class="intro">
             <h1 class="display title">{{ item.title }}</h1>
             <p class="lead">{{ description }}</p>
@@ -210,13 +238,13 @@ useSeoMeta({
           </div>
 
           <div class="accordion">
-            <details v-if="details.length">
+            <details v-if="details.length" @toggle="onToggle">
               <summary>{{ t('product.details') }}<span class="plus" aria-hidden="true" /></summary>
               <ul class="details-list">
                 <li v-for="line in details" :key="line">{{ line }}</li>
               </ul>
             </details>
-            <details v-if="dims" ref="sizeEl" class="size">
+            <details v-if="dims" ref="sizeEl" class="size" @toggle="onToggle">
               <summary>{{ t('product.size') }}<span class="plus" aria-hidden="true" /></summary>
               <div class="size-body">
                 <ProductSizeDiagram :dimensions="dims" />
@@ -229,14 +257,14 @@ useSeoMeta({
                 <p v-if="dims.laptopInches" class="laptop">{{ t('product.dims.laptop', { n: dims.laptopInches }) }}</p>
               </div>
             </details>
-            <details>
+            <details @toggle="onToggle">
               <summary>{{ t('product.shipping') }}<span class="plus" aria-hidden="true" /></summary>
               <p class="text">{{ t('product.shippingText') }}</p>
               <p class="text">
                 <NuxtLink :to="localePath('/shipping')" class="text-link">{{ t('product.shippingMore') }}</NuxtLink>
               </p>
             </details>
-            <details>
+            <details @toggle="onToggle">
               <summary>{{ t('product.care') }}<span class="plus" aria-hidden="true" /></summary>
               <p class="text">{{ t('product.careText') }}</p>
             </details>
@@ -305,25 +333,21 @@ useSeoMeta({
   flex: 1 1 0;
   min-width: 0;
 }
-/* Колонка з інформацією стоїть на місці, поки гортаються фото. Якщо з відкритими блоками вона вища за екран,
-   гортається сама (інакше низ закріпленої колонки не видно). Поля 4px, щоб кільця фокусу не обрізались. */
+/* Колонка з інформацією стоїть на місці, поки гортаються фото, але лише коли повністю влазить у вікно
+   (клас .pinned ставить measurePinned). Вища за вікно колонка звичайна: гортається тільки сторінка, без
+   власної прокрутки. top заданий завжди: скрипт читає з нього відступ від верху вікна. */
 .info {
-  --info-top: calc(var(--header-h) - var(--header-shrink) + 24px);
   flex: 0 1 400px;
   min-width: 320px;
-  position: sticky;
-  top: var(--info-top);
-  max-height: calc(100vh - var(--info-top) - 16px);
-  overflow-y: auto;
-  scrollbar-width: thin;
-  padding: 4px;
-  margin: -4px;
+  top: calc(var(--header-h) - var(--header-shrink) + 24px);
   display: flex;
   flex-direction: column;
   gap: 22px;
 }
-.info > * {
-  flex-shrink: 0;
+@media (min-width: 761px) {
+  .info.pinned {
+    position: sticky;
+  }
 }
 
 .intro {
@@ -564,9 +588,6 @@ details[open] .plus {
     width: 100%;
   }
   .info {
-    position: static;
-    max-height: none;
-    overflow: visible;
     min-width: 0;
     width: 100%;
   }

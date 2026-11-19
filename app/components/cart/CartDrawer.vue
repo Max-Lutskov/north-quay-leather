@@ -400,10 +400,15 @@ function onKeydown(e: KeyboardEvent) {
   line-height: 1.5;
   color: var(--ink-soft);
 }
+/* На низькому вікні панель гортається, а кнопка тримається біля її нижнього краю, щоб оформлення було видно
+   без прокрутки. Тінь кольору тла закриває текст, що проходить під кнопкою. Якщо все влазить, нічого не міняється */
 .checkout {
   width: 100%;
   min-height: 56px;
   box-sizing: border-box;
+  position: sticky;
+  bottom: 16px;
+  box-shadow: 0 -12px 0 var(--paper), 0 16px 0 var(--paper);
 }
 .checkout.busy {
   opacity: 0.5;

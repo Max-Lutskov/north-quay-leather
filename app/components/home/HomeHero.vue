@@ -113,7 +113,8 @@ function release() {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   height: calc(100svh - var(--header-h) - var(--banner-h));
-  min-height: 560px;
+  /* Нижня межа невелика: на низькому вікні ноутбука (600px) заголовок і кнопка лишаються на першому екрані */
+  min-height: 420px;
   max-height: 900px;
 }
 .slide img {
@@ -257,6 +258,7 @@ function release() {
   .grid {
     display: block;
     position: relative;
+    min-height: 560px;
     max-height: 720px;
   }
   .slide {
